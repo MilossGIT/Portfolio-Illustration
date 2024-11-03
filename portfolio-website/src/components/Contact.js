@@ -116,7 +116,7 @@ const Contact = () => {
                     <MapPin className='w-6 h-6 text-pink-500' />
                     <div>
                       <p className='font-medium'>Location</p>
-                      <p className='text-gray-600'>Serbia</p>
+                      <p className='text-gray-600'>Slovenia</p>
                     </div>
                   </m.div>
                 </div>
