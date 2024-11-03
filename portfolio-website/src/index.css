@@ -1,0 +1,239 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Indie+Flower&family=Satisfy&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-color: #ec4899;
+  --secondary-color: #d68fb0;
+  --background-color: #eae6f0;
+  --text-color: #374151;
+  --border-radius: 8px;
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --transition-speed: 0.3s;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    @apply cursor-none;
+  }
+
+  body {
+    font-family: 'Indie Flower', cursive;
+    @apply m-0 p-0 flex flex-col min-h-screen bg-gray-50 text-gray-900 cursor-none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl lg:text-5xl;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+}
+
+@layer components {
+  .nav-link {
+    @apply relative text-lg transition-colors cursor-none;
+  }
+
+  .nav-link::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-pink-500 transition-all duration-300;
+  }
+
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+
+  .btn {
+    @apply px-6 py-2 rounded-full transition-all duration-300 inline-flex items-center justify-center cursor-none;
+  }
+
+  .btn-primary {
+    @apply bg-pink-500 text-white hover:bg-pink-600 transform hover:scale-105;
+  }
+
+  .btn-outline {
+    @apply border-2 border-pink-500 text-pink-500 hover:bg-pink-50 transform hover:scale-105;
+  }
+
+  .section {
+    @apply py-20 px-4;
+  }
+
+  .section-title {
+    @apply text-4xl font-bold text-center mb-12;
+  }
+
+  .card {
+    @apply bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105;
+  }
+}
+
+@layer utilities {
+  .cursor-none {
+    cursor: none !important;
+  }
+
+  .hoverable {
+    @apply cursor-none;
+  }
+}
+
+@media (max-width: 768px) {
+  html,
+  body,
+  a,
+  button,
+  .hoverable {
+    cursor: auto !important;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-pink-500 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-pink-600;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse 3s ease-in-out infinite;
+}
+
+.mobile-menu-enter {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.mobile-menu-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.mobile-menu-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mobile-menu-exit-active {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.focus-visible {
+  @apply outline-none ring-2 ring-pink-500 ring-offset-2;
+}
+
+.loading {
+  @apply relative pointer-events-none opacity-75;
+}
+
+.loading::after {
+  content: '';
+  @apply absolute inset-0 bg-white bg-opacity-50;
+}
+
+.image-hover {
+  @apply transition-all duration-300;
+}
+
+.image-hover:hover {
+  @apply transform scale-105 shadow-lg;
+}
+
+.bg-pattern {
+  background-image: radial-gradient(#ec4899 0.5px, transparent 0.5px),
+    radial-gradient(#ec4899 0.5px, #fff 0.5px);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+  opacity: 0.1;
+}
+
+.z-navigation {
+  z-index: 50;
+}
+
+.z-modal {
+  z-index: 100;
+}
+
+.z-cursor {
+  z-index: 9999;
+}
+
+@media (max-width: 768px) {
+  .text-responsive {
+    @apply text-base;
+  }
+}
+
+@media (min-width: 769px) {
+  .text-responsive {
+    @apply text-lg;
+  }
+}
+
+.no-select {
+  @apply select-none;
+}
+
+.smooth-transition {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+.no-drag {
+  -webkit-user-drag: none;
+  user-drag: none;
+}
