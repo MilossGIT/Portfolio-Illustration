@@ -69,7 +69,7 @@ const Navigation = () => {
           {/* Logo */}
           <m.div
             whileHover={{ scale: 1.05 }}
-            className='text-2xl font-bold text-pink-500 cursor-none hoverable'
+            className='text-2xl font-bold text-pink-500 cursor-pointer'
             onClick={() => scrollToSection('home')}
           >
             Mina
@@ -83,7 +83,7 @@ const Navigation = () => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => scrollToSection(item.id)}
-                className={`text-lg transition-colors cursor-none hoverable px-4 py-2 rounded-full
+                className={`text-lg transition-colors cursor-pointer px-4 py-2 rounded-full
                   ${
                     activeSection === item.id
                       ? 'text-pink-500 font-bold'
@@ -98,7 +98,7 @@ const Navigation = () => {
           {/* Mobile Menu Button */}
           <m.button
             whileTap={{ scale: 0.95 }}
-            className='md:hidden hoverable cursor-none p-2'
+            className='md:hidden cursor-pointer p-2'
             onClick={() => setIsOpen(!isOpen)}
             aria-label='Toggle Menu'
           >
@@ -107,15 +107,10 @@ const Navigation = () => {
         </div>
 
         {/* Mobile Menu */}
-        <m.div
-          initial={false}
-          animate={isOpen ? 'open' : 'closed'}
-          variants={{
-            open: { opacity: 1, height: 'auto' },
-            closed: { opacity: 0, height: 0 },
-          }}
-          transition={{ duration: 0.3 }}
-          className='md:hidden overflow-hidden bg-white'
+        <div
+          className={`md:hidden overflow-hidden bg-white transition-all duration-300 ${
+            isOpen ? 'max-h-screen' : 'max-h-0'
+          }`}
         >
           <div className='px-2 py-3 space-y-1'>
             {menuItems.map((item) => (
@@ -126,7 +121,7 @@ const Navigation = () => {
                   scrollToSection(item.id);
                   setIsOpen(false);
                 }}
-                className={`block w-full text-left px-4 py-3 rounded-lg transition-colors
+                className={`block w-full text-left px-4 py-3 rounded-lg transition-colors cursor-pointer
                   ${
                     activeSection === item.id
                       ? 'text-pink-500 bg-pink-50 font-bold'
@@ -137,7 +132,7 @@ const Navigation = () => {
               </m.button>
             ))}
           </div>
-        </m.div>
+        </div>
       </div>
     </nav>
   );

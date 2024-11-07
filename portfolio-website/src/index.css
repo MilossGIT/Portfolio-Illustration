@@ -17,12 +17,13 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    @apply cursor-none;
   }
 
   body {
     font-family: 'Indie Flower', cursive;
-    @apply m-0 p-0 flex flex-col min-h-screen bg-gray-50 text-gray-900 cursor-none;
+    @apply m-0 p-0 flex flex-col min-h-screen bg-gray-50 text-gray-900;
+    overflow-x: hidden;
+    width: 100%;
   }
 
   h1,
@@ -49,7 +50,7 @@
 
 @layer components {
   .nav-link {
-    @apply relative text-lg transition-colors cursor-none;
+    @apply relative text-lg transition-colors;
   }
 
   .nav-link::after {
@@ -62,7 +63,7 @@
   }
 
   .btn {
-    @apply px-6 py-2 rounded-full transition-all duration-300 inline-flex items-center justify-center cursor-none;
+    @apply px-6 py-2 rounded-full transition-all duration-300 inline-flex items-center justify-center;
   }
 
   .btn-primary {
@@ -84,15 +85,37 @@
   .card {
     @apply bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105;
   }
-}
 
-@layer utilities {
-  .cursor-none {
-    cursor: none !important;
+  .container {
+    width: 100%;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    margin-right: auto;
+    margin-left: auto;
   }
 
-  .hoverable {
-    @apply cursor-none;
+  @media (min-width: 640px) {
+    .container {
+      max-width: 640px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .container {
+      max-width: 768px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container {
+      max-width: 1024px;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .container {
+      max-width: 1280px;
+    }
   }
 }
 
@@ -236,4 +259,10 @@
 .no-drag {
   -webkit-user-drag: none;
   user-drag: none;
+}
+
+button,
+a,
+[role='button'] {
+  cursor: pointer;
 }
