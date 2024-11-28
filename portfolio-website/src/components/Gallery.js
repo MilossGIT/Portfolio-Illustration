@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 // Import all images
 function importAll(r) {
@@ -7,16 +8,67 @@ function importAll(r) {
 }
 
 // Import all images from the images directory
-const images = importAll(require.context('../images', false, /\.(jpg)$/)).map(
-  (src, index) => ({
-    id: index + 1,
-    src: src,
-    title: `Illustration ${index + 1}`,
-  })
-);
+const images = importAll(
+  require.context('../images', false, /\.(jpg|JPG)$/i)
+).map((src, index) => ({
+  id: index + 1,
+  src: src,
+  title: `Illustration ${index + 1}`,
+}));
 
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState(null);
+
+  const navigateImage = useCallback(
+    (direction) => {
+      if (!selectedImage) return;
+
+      const currentIndex = images.findIndex(
+        (img) => img.id === selectedImage.id
+      );
+      let newIndex;
+
+      if (direction === 'next') {
+        newIndex = currentIndex === images.length - 1 ? 0 : currentIndex + 1;
+      } else {
+        newIndex = currentIndex === 0 ? images.length - 1 : currentIndex - 1;
+      }
+
+      setSelectedImage(images[newIndex]);
+    },
+    [selectedImage]
+  );
+
+  // Handle keyboard navigation
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (!selectedImage) return;
+
+      switch (e.key) {
+        case 'ArrowRight':
+          navigateImage('next');
+          break;
+        case 'ArrowLeft':
+          navigateImage('prev');
+          break;
+        case 'Escape':
+          setSelectedImage(null);
+          break;
+        default:
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [selectedImage, navigateImage]);
+
+  // Prevent context menu
+  useEffect(() => {
+    const preventDefault = (e) => e.preventDefault();
+    document.addEventListener('contextmenu', preventDefault);
+    return () => document.removeEventListener('contextmenu', preventDefault);
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -64,8 +116,10 @@ const Gallery = () => {
                   <img
                     src={image.src}
                     alt={image.title}
-                    className='w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110'
+                    className='w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110 pointer-events-none'
                     loading='lazy'
+                    draggable='false'
+                    onContextMenu={(e) => e.preventDefault()}
                   />
                   <div className='absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center'>
                     <p className='text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-lg font-semibold px-4 text-center'>
@@ -98,11 +152,40 @@ const Gallery = () => {
                 ×
               </button>
 
+              {/* Navigation buttons */}
+              <button
+                className='absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-pink-500 transition-colors p-2'
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigateImage('prev');
+                }}
+              >
+                <ChevronLeft size={40} />
+              </button>
+
+              <button
+                className='absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-pink-500 transition-colors p-2'
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigateImage('next');
+                }}
+              >
+                <ChevronRight size={40} />
+              </button>
+
               <m.img
                 src={selectedImage.src}
                 alt={selectedImage.title}
-                className='max-h-[90vh] max-w-[90vw] object-contain rounded-lg'
+                className='max-h-[90vh] max-w-[90vw] object-contain rounded-lg pointer-events-none'
+                draggable='false'
+                onContextMenu={(e) => e.preventDefault()}
               />
+
+              {/* Image counter */}
+              <div className='absolute bottom-4 left-1/2 -translate-x-1/2 text-white bg-black bg-opacity-50 px-4 py-2 rounded-full'>
+                {images.findIndex((img) => img.id === selectedImage.id) + 1} /{' '}
+                {images.length}
+              </div>
             </m.div>
           )}
         </AnimatePresence>
