@@ -71,10 +71,10 @@ const Contact = () => {
           viewport={{ once: true }}
           className='max-w-6xl mx-auto'
         >
-          <h2 className='text-4xl md:text-5xl font-bold text-center mb-4'>
+          <h2 className='text-4xl md:text-5xl font-medium text-center mb-4 font-poppins tracking-tight'>
             Get in Touch
           </h2>
-          <p className='text-gray-600 text-center mb-12 max-w-2xl mx-auto'>
+          <p className='text-gray-600 text-center mb-12 max-w-2xl mx-auto font-inter'>
             I'm always open for new projects and creative collaborations. Feel
             free to reach out!
           </p>
@@ -88,7 +88,7 @@ const Contact = () => {
               className='space-y-8'
             >
               <div className='bg-white rounded-2xl shadow-lg p-8'>
-                <h3 className='text-2xl font-semibold mb-6'>
+                <h3 className='text-2xl font-medium mb-6 font-poppins'>
                   Contact Information
                 </h3>
 
@@ -122,7 +122,7 @@ const Contact = () => {
                 </div>
 
                 <div className='mt-8'>
-                  <h4 className='text-lg font-semibold mb-4'>Follow Me</h4>
+                  <h4 className='text-lg font-medium mb-4 font-poppins'>Follow Me</h4>
                   <div className='flex space-x-4'>
                     <m.a
                       whileHover={{ y: -5 }}
@@ -154,7 +154,7 @@ const Contact = () => {
               viewport={{ once: true }}
               className='bg-white rounded-2xl shadow-lg p-8'
             >
-              <h3 className='text-2xl font-semibold mb-6'>Send Me a Message</h3>
+              <h3 className='text-2xl font-medium mb-6 font-poppins'>Send Me a Message</h3>
 
               <form ref={formRef} onSubmit={handleSubmit} className='space-y-6'>
                 <div>
@@ -223,10 +223,9 @@ const Contact = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   className={`w-full py-3 px-6 rounded-lg text-white font-medium 
-                    ${
-                      isSubmitting
-                        ? 'bg-gray-400'
-                        : 'bg-pink-500 hover:bg-pink-600'
+                    ${isSubmitting
+                      ? 'bg-gray-400'
+                      : 'bg-pink-500 hover:bg-pink-600'
                     } 
                     transition-colors flex items-center justify-center space-x-2`}
                 >

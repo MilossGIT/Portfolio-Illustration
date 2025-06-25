@@ -92,8 +92,8 @@ const Gallery = () => {
           transition={{ duration: 0.6 }}
           className='text-center mb-12'
         >
-          <h2 className='text-4xl font-bold mb-4'>My Work</h2>
-          <p className='text-gray-600 max-w-2xl mx-auto'>
+          <h2 className='text-4xl font-medium mb-4 font-poppins tracking-tight'>My Work</h2>
+          <p className='text-gray-600 max-w-2xl mx-auto font-inter'>
             A collection of my illustrations and digital artworks
           </p>
         </m.div>

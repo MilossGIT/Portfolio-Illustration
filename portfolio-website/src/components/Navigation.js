@@ -60,16 +60,15 @@ const Navigation = () => {
 
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white shadow-lg' : 'bg-transparent'
-      }`}
+      className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-lg' : 'bg-transparent'
+        }`}
     >
       <div className='container mx-auto px-4'>
         <div className='flex justify-between items-center h-20'>
           {/* Logo */}
           <m.div
             whileHover={{ scale: 1.05 }}
-            className='text-2xl font-bold text-pink-500 cursor-pointer'
+            className='text-2xl font-medium text-pink-500 cursor-pointer font-poppins'
             onClick={() => scrollToSection('home')}
           >
             Mina
@@ -84,10 +83,9 @@ const Navigation = () => {
                 whileTap={{ scale: 0.95 }}
                 onClick={() => scrollToSection(item.id)}
                 className={`text-lg transition-colors cursor-pointer px-4 py-2 rounded-full
-                  ${
-                    activeSection === item.id
-                      ? 'text-pink-500 font-bold'
-                      : 'text-gray-600 hover:text-pink-500'
+                  ${activeSection === item.id
+                    ? 'text-pink-500 font-medium'
+                    : 'text-gray-600 hover:text-pink-500'
                   }`}
               >
                 {item.label}
@@ -108,9 +106,8 @@ const Navigation = () => {
 
         {/* Mobile Menu */}
         <div
-          className={`md:hidden overflow-hidden bg-white transition-all duration-300 ${
-            isOpen ? 'max-h-screen' : 'max-h-0'
-          }`}
+          className={`md:hidden overflow-hidden bg-white transition-all duration-300 ${isOpen ? 'max-h-screen' : 'max-h-0'
+            }`}
         >
           <div className='px-2 py-3 space-y-1'>
             {menuItems.map((item) => (
@@ -122,10 +119,9 @@ const Navigation = () => {
                   setIsOpen(false);
                 }}
                 className={`block w-full text-left px-4 py-3 rounded-lg transition-colors cursor-pointer
-                  ${
-                    activeSection === item.id
-                      ? 'text-pink-500 bg-pink-50 font-bold'
-                      : 'text-gray-600 hover:text-pink-500 hover:bg-pink-50'
+                  ${activeSection === item.id
+                    ? 'text-pink-500 bg-pink-50 font-medium'
+                    : 'text-gray-600 hover:text-pink-500 hover:bg-pink-50'
                   }`}
               >
                 {item.label}

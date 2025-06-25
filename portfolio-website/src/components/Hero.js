@@ -44,11 +44,11 @@ const Hero = () => {
           transition={{ duration: 0.8 }}
           className='max-w-4xl mx-auto'
         >
-          <h1 className='text-5xl md:text-7xl font-bold text-gray-800 mb-6'>
+          <h1 className='text-5xl md:text-7xl font-medium text-gray-800 mb-6 font-poppins tracking-tight'>
             Mina Sesek Minic
           </h1>
 
-          <p className='text-xl md:text-2xl text-gray-600 mb-8'>
+          <p className='text-xl md:text-2xl text-gray-600 mb-8 font-inter font-medium'>
             Illustrator & Visual Storyteller
           </p>
 

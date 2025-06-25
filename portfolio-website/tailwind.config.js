@@ -19,9 +19,9 @@ module.exports = {
         },
       },
       fontFamily: {
-        indie: ['Indie Flower', 'cursive'],
-        caveat: ['Caveat', 'cursive'],
-        satisfy: ['Satisfy', 'cursive'],
+        'inter': ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        'poppins': ['Poppins', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        'sans': ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
       },
     },
   },

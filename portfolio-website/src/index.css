@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Indie+Flower&family=Satisfy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -20,10 +20,13 @@
   }
 
   body {
-    font-family: 'Indie Flower', cursive;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      'Roboto', sans-serif;
     @apply m-0 p-0 flex flex-col min-h-screen bg-gray-50 text-gray-900;
     overflow-x: hidden;
     width: 100%;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    font-optical-sizing: auto;
   }
 
   h1,
@@ -32,19 +35,41 @@
   h4,
   h5,
   h6 {
-    @apply font-bold;
+    @apply font-medium font-poppins;
+    letter-spacing: -0.025em;
   }
 
   h1 {
     @apply text-4xl md:text-5xl lg:text-6xl;
+    letter-spacing: -0.04em;
   }
 
   h2 {
     @apply text-3xl md:text-4xl lg:text-5xl;
+    letter-spacing: -0.03em;
   }
 
   h3 {
     @apply text-2xl md:text-3xl;
+    letter-spacing: -0.02em;
+  }
+
+  p,
+  span,
+  div,
+  input,
+  textarea,
+  button,
+  label {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      'Roboto', sans-serif;
+  }
+
+  /* Improve text rendering */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 }
 
@@ -63,7 +88,7 @@
   }
 
   .btn {
-    @apply px-6 py-2 rounded-full transition-all duration-300 inline-flex items-center justify-center;
+    @apply px-6 py-2 rounded-full transition-all duration-300 inline-flex items-center justify-center font-inter font-medium;
   }
 
   .btn-primary {

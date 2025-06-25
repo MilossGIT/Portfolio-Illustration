@@ -13,7 +13,7 @@ const About = () => {
           viewport={{ once: true }}
           className='max-w-4xl mx-auto'
         >
-          <h2 className='text-4xl font-bold text-center mb-12'>About Me</h2>
+          <h2 className='text-4xl font-medium text-center mb-12 font-poppins tracking-tight'>About Me</h2>
 
           <div className='grid md:grid-cols-2 gap-12 items-start'>
             <div className='relative group sticky top-8'>
@@ -56,7 +56,7 @@ const About = () => {
                 <m.p
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
-                  className='text-lg leading-relaxed'
+                  className='text-lg leading-relaxed font-inter'
                 >
                   My name is Mina, an illustrator, engineer, and proud mom based
                   in Ljubljana, Slovenia. My journey has been anything but
@@ -69,7 +69,7 @@ const About = () => {
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   transition={{ delay: 0.4 }}
-                  className='text-lg leading-relaxed mt-6'
+                  className='text-lg leading-relaxed mt-6 font-inter'
                 >
                   My inspiration flows from the everyday magic of life—watching
                   my daughter explore the world, our shared moments reading
@@ -83,7 +83,7 @@ const About = () => {
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   transition={{ delay: 0.6 }}
-                  className='text-lg leading-relaxed mt-6'
+                  className='text-lg leading-relaxed mt-6 font-inter'
                 >
                   From capturing the humorous reality of working from home (like
                   the time my daughter decided to become a hairdresser during my
@@ -97,7 +97,7 @@ const About = () => {
 
               {/* Social Links with subtle styling */}
               <div className='pt-8 border-t border-pink-100'>
-                <h3 className='text-xl font-semibold text-gray-800 mb-4'>
+                <h3 className='text-xl font-medium text-gray-800 mb-4 font-poppins'>
                   Find my work on
                 </h3>
                 <div className='flex space-x-6'>
