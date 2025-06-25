@@ -84,7 +84,7 @@ const Gallery = () => {
   };
 
   return (
-    <section id='gallery' className='py-20 bg-gray-50'>
+    <section id='gallery' className='py-20 section-gradient'>
       <div className='container mx-auto px-4'>
         <m.div
           initial={{ opacity: 0, y: 20 }}
@@ -109,7 +109,7 @@ const Gallery = () => {
               <m.div
                 key={image.id}
                 variants={itemVariants}
-                className='relative group cursor-pointer overflow-hidden rounded-lg shadow-lg bg-white'
+                className='relative group cursor-pointer overflow-hidden glass-card hover-lift image-overlay'
                 onClick={() => setSelectedImage(image)}
               >
                 <div className='aspect-w-4 aspect-h-3'>

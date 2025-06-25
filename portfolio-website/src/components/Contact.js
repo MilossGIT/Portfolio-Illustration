@@ -61,7 +61,7 @@ const Contact = () => {
   };
 
   return (
-    <section id='contact' className='py-20 bg-gray-50'>
+    <section id='contact' className='py-20 section-gradient'>
       <Toaster position='top-center' />
       <div className='container mx-auto px-4'>
         <m.div
@@ -87,7 +87,7 @@ const Contact = () => {
               viewport={{ once: true }}
               className='space-y-8'
             >
-              <div className='bg-white rounded-2xl shadow-lg p-8'>
+              <div className='glass-card shadow-lg p-8 hover-lift'>
                 <h3 className='text-2xl font-medium mb-6 font-poppins'>
                   Contact Information
                 </h3>
@@ -152,7 +152,7 @@ const Contact = () => {
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className='bg-white rounded-2xl shadow-lg p-8'
+              className='glass-card shadow-lg p-8 hover-lift'
             >
               <h3 className='text-2xl font-medium mb-6 font-poppins'>Send Me a Message</h3>
 

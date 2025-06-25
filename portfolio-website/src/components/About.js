@@ -4,7 +4,7 @@ import aboutImage from '../about.jpg';
 
 const About = () => {
   return (
-    <section id='about' className='py-20 bg-white min-h-screen'>
+    <section id='about' className='py-20 bg-white min-h-screen section-gradient'>
       <div className='container mx-auto px-4'>
         <m.div
           initial={{ opacity: 0, y: 20 }}
@@ -17,7 +17,7 @@ const About = () => {
 
           <div className='grid md:grid-cols-2 gap-12 items-start'>
             <div className='relative group sticky top-8'>
-              <div className='overflow-hidden rounded-lg shadow-lg relative'>
+              <div className='overflow-hidden glass-card shadow-lg relative hover-lift'>
                 {/* Subtle pink border accent */}
                 <div className='absolute inset-0 border border-pink-100 rounded-lg z-20'></div>
 

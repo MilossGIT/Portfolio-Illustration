@@ -60,7 +60,9 @@ const Navigation = () => {
 
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-lg' : 'bg-transparent'
+      className={`fixed w-full z-50 transition-all duration-300 ${scrolled
+        ? 'bg-white/90 shadow-lg backdrop-blur-sm border-b border-white/20'
+        : 'bg-transparent'
         }`}
     >
       <div className='container mx-auto px-4'>
@@ -106,7 +108,7 @@ const Navigation = () => {
 
         {/* Mobile Menu */}
         <div
-          className={`md:hidden overflow-hidden bg-white transition-all duration-300 ${isOpen ? 'max-h-screen' : 'max-h-0'
+          className={`md:hidden overflow-hidden glass-card transition-all duration-500 ${isOpen ? 'max-h-screen' : 'max-h-0'
             }`}
         >
           <div className='px-2 py-3 space-y-1'>
