@@ -7,14 +7,27 @@ function importAll(r) {
   return r.keys().map(r);
 }
 
-// Import all images from the images directory
-const images = importAll(
+// Shuffle function for randomizing array order
+const shuffleArray = (array) => {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+};
+
+// Import all images from the images directory and shuffle them
+const allImages = importAll(
   require.context('../images', false, /\.(jpg|JPG)$/i)
 ).map((src, index) => ({
   id: index + 1,
   src: src,
   title: `Illustration ${index + 1}`,
 }));
+
+// Shuffle the images so they appear in random order each visit
+const images = shuffleArray(allImages);
 
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState(null);
