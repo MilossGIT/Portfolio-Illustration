@@ -194,12 +194,12 @@ const Hero = () => {
                   let timeoutId = null;
                   let animationId = null;
                   let cancelled = false;
+                  let userScrollDetected = false;
 
                   const cleanup = () => {
                     // Remove event listeners
-                    window.removeEventListener('touchmove', cancelAll);
-                    window.removeEventListener('scroll', cancelAll);
-                    window.removeEventListener('wheel', cancelAll);
+                    window.removeEventListener('touchmove', handleUserScroll);
+                    window.removeEventListener('wheel', handleUserScroll);
 
                     // Clear any pending timeouts
                     if (timeoutId) {
@@ -230,17 +230,18 @@ const Hero = () => {
                     }, 200);
                   };
 
-                  // Cancel everything if user tries to touch/scroll
-                  const cancelAll = () => {
-                    if (cancelled) return;
+                  // Detect user-initiated scroll (not programmatic)
+                  const handleUserScroll = (e) => {
+                    if (userScrollDetected || cancelled) return;
+                    userScrollDetected = true;
                     cancelled = true;
+                    console.log('User scroll detected, canceling animation');
                     cleanup();
                   };
 
-                  // Listen for user scroll attempts IMMEDIATELY
-                  window.addEventListener('touchmove', cancelAll, { passive: true });
-                  window.addEventListener('scroll', cancelAll, { passive: true });
-                  window.addEventListener('wheel', cancelAll, { passive: true });
+                  // Listen for user scroll attempts IMMEDIATELY (not 'scroll' event - it conflicts with our animation)
+                  window.addEventListener('touchmove', handleUserScroll, { passive: true });
+                  window.addEventListener('wheel', handleUserScroll, { passive: true });
 
                   // Add loading delay, then smooth scroll
                   timeoutId = setTimeout(() => {
@@ -258,7 +259,10 @@ const Hero = () => {
                     };
 
                     const animation = (currentTime) => {
-                      if (cancelled) return;
+                      if (cancelled) {
+                        cleanup();
+                        return;
+                      }
 
                       if (startTime === null) startTime = currentTime;
                       const timeElapsed = currentTime - startTime;
