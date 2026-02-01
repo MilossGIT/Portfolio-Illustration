@@ -61,7 +61,7 @@ const Contact = () => {
   };
 
   return (
-    <section id='contact' className='py-20 section-gradient'>
+    <section id='contact' className='py-20 bg-white'>
       <Toaster position='top-center' />
       <div className='container mx-auto px-4'>
         <m.div
@@ -71,7 +71,7 @@ const Contact = () => {
           viewport={{ once: true }}
           className='max-w-6xl mx-auto'
         >
-          <h2 className='text-4xl md:text-5xl font-medium text-center mb-4 font-poppins tracking-tight'>
+          <h2 className='text-4xl md:text-5xl font-bold text-center mb-4 font-poppins tracking-tight text-gray-900'>
             Get in Touch
           </h2>
           <p className='text-gray-600 text-center mb-12 max-w-2xl mx-auto font-inter'>
@@ -85,19 +85,35 @@ const Contact = () => {
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
               className='space-y-8'
             >
-              <div className='glass-card shadow-lg p-8 hover-lift'>
-                <h3 className='text-2xl font-medium mb-6 font-poppins'>
+              <m.div
+                className='glass-card shadow-lg p-8 hover-lift relative overflow-hidden group'
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: 'spring', stiffness: 300 }}
+              >
+                {/* Animated Background Gradient */}
+                <m.div
+                  className='absolute inset-0 bg-gradient-to-br from-pink-100/50 to-purple-100/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500'
+                />
+
+                <h3 className='text-2xl font-medium mb-6 font-poppins relative z-10'>
                   Contact Information
                 </h3>
 
-                <div className='space-y-6'>
+                <div className='space-y-6 relative z-10'>
                   <m.div
-                    whileHover={{ x: 10 }}
-                    className='flex items-center space-x-4'
+                    whileHover={{ x: 10, scale: 1.05 }}
+                    transition={{ type: 'spring', stiffness: 400 }}
+                    className='flex items-center space-x-4 cursor-pointer'
                   >
-                    <Mail className='w-6 h-6 text-pink-500' />
+                    <m.div
+                      whileHover={{ rotate: 360, scale: 1.2 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <Mail className='w-6 h-6 text-pink-500' />
+                    </m.div>
                     <div>
                       <p className='font-medium'>Email</p>
                       <a
@@ -110,10 +126,16 @@ const Contact = () => {
                   </m.div>
 
                   <m.div
-                    whileHover={{ x: 10 }}
-                    className='flex items-center space-x-4'
+                    whileHover={{ x: 10, scale: 1.05 }}
+                    transition={{ type: 'spring', stiffness: 400 }}
+                    className='flex items-center space-x-4 cursor-pointer'
                   >
-                    <MapPin className='w-6 h-6 text-pink-500' />
+                    <m.div
+                      whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.2 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <MapPin className='w-6 h-6 text-pink-500' />
+                    </m.div>
                     <div>
                       <p className='font-medium'>Location</p>
                       <p className='text-gray-600'>Slovenia</p>
@@ -121,11 +143,13 @@ const Contact = () => {
                   </m.div>
                 </div>
 
-                <div className='mt-8'>
+                <div className='mt-8 relative z-10'>
                   <h4 className='text-lg font-medium mb-4 font-poppins'>Follow Me</h4>
                   <div className='flex space-x-4'>
                     <m.a
-                      whileHover={{ y: -5 }}
+                      whileHover={{ y: -5, scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ type: 'spring', stiffness: 400 }}
                       href='https://www.behance.net/miminart'
                       target='_blank'
                       rel='noopener noreferrer'
@@ -134,7 +158,9 @@ const Contact = () => {
                       <Globe className='w-5 h-5 text-pink-500' />
                     </m.a>
                     <m.a
-                      whileHover={{ y: -5 }}
+                      whileHover={{ y: -5, scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ type: 'spring', stiffness: 400 }}
                       href='https://www.instagram.com/misemillustration/'
                       target='_blank'
                       rel='noopener noreferrer'
@@ -144,7 +170,7 @@ const Contact = () => {
                     </m.a>
                   </div>
                 </div>
-              </div>
+              </m.div>
             </m.div>
 
             {/* Contact Form */}

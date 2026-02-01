@@ -8,6 +8,8 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "autoprefixer": "^10.4.20",
+    "cloudinary": "^2.9.0",
+    "cloudinary-react": "^1.8.1",
     "framer-motion": "^11.11.11",
     "lucide-react": "^0.454.0",
     "postcss": "^8.4.47",
@@ -23,7 +25,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "sync-images": "node scripts/sync-images.js"
   },
   "eslintConfig": {
     "extends": [

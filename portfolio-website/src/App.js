@@ -1,40 +1,22 @@
 import React from 'react';
 import Navigation from './components/Navigation';
+import Hero from './components/Hero';
 import Gallery from './components/Gallery';
 import About from './components/About';
 import Contact from './components/Contact';
-import { LazyMotion, domAnimation } from 'framer-motion';
+import { LazyMotion, domAnimation, m } from 'framer-motion';
 
 function App() {
   return (
     <LazyMotion features={domAnimation}>
-      <div className='min-h-screen bg-gray-50 overflow-x-hidden'>
+      <m.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className='min-h-screen bg-gray-50 overflow-x-hidden'
+      >
         <Navigation />
-
-        {/* Hero Section with gradient background */}
-        <section
-          id='home'
-          className='min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-pink-50 pt-16'
-        >
-          <div className='text-center px-4'>
-            <h1 className='text-5xl md:text-7xl font-bold text-gray-800 mb-6'>
-              Mina Sesek Minic
-            </h1>
-            <p className='text-xl md:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto'>
-              Illustrator & Visual Storyteller
-            </p>
-            <button
-              onClick={() =>
-                document
-                  .getElementById('gallery')
-                  .scrollIntoView({ behavior: 'smooth' })
-              }
-              className='bg-pink-500 text-white px-8 py-3 rounded-full text-lg hover:bg-pink-600 transition-colors transform hover:scale-105'
-            >
-              View My Work
-            </button>
-          </div>
-        </section>
+        <Hero />
 
         {/* Main Content */}
         <main>
@@ -44,40 +26,122 @@ function App() {
         </main>
 
         {/* Footer */}
-        <footer className='bg-gray-800 text-white py-8'>
-          <div className='container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8'>
-            <div>
-              <h3 className='text-xl font-bold mb-4'>Contact</h3>
-              <p>Email: minasesek@gmail.com</p>
-            </div>
-            <div>
-              <h3 className='text-xl font-bold mb-4'>Follow Me</h3>
-              <div className='space-x-4'>
-                <a
-                  href='https://www.behance.net/miminart'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='hover:text-pink-400 transition-colors'
+        <m.footer
+          className='bg-gray-900 text-white py-12'
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className='container mx-auto px-4'>
+            <div className='grid grid-cols-1 md:grid-cols-3 gap-8 mb-8'>
+              {/* Contact Section */}
+              <m.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1, duration: 0.5 }}
+                className='text-center md:text-left'
+              >
+                <h3 className='text-xl font-bold mb-3 font-poppins flex items-center justify-center md:justify-start gap-2'>
+                  <m.span
+                    className='inline-block w-1.5 h-1.5 bg-pink-500 rounded-full'
+                    animate={{ scale: [1, 1.4, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
+                  Contact
+                </h3>
+                <m.a
+                  href='mailto:minasesek@gmail.com'
+                  className='text-gray-400 hover:text-pink-400 transition-colors text-sm block'
+                  whileHover={{ x: 3 }}
                 >
-                  Behance
-                </a>
-                <a
-                  href='https://www.instagram.com/misemillustration/'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='hover:text-pink-400 transition-colors'
-                >
-                  Instagram
-                </a>
-              </div>
+                  minasesek@gmail.com
+                </m.a>
+              </m.div>
+
+              {/* Follow Me Section */}
+              <m.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2, duration: 0.5 }}
+                className='text-center'
+              >
+                <h3 className='text-xl font-bold mb-3 font-poppins flex items-center justify-center gap-2'>
+                  <m.span
+                    className='inline-block w-1.5 h-1.5 bg-purple-500 rounded-full'
+                    animate={{ scale: [1, 1.4, 1] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+                  />
+                  Follow Me
+                </h3>
+                <div className='flex justify-center space-x-6 text-sm'>
+                  <m.a
+                    href='https://www.behance.net/miminart'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='text-gray-400 hover:text-pink-400 transition-colors'
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Behance
+                  </m.a>
+                  <m.a
+                    href='https://www.instagram.com/misemillustration/'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='text-gray-400 hover:text-pink-400 transition-colors'
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Instagram
+                  </m.a>
+                </div>
+              </m.div>
+
+              {/* Location Section */}
+              <m.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3, duration: 0.5 }}
+                className='text-center md:text-right'
+              >
+                <h3 className='text-xl font-bold mb-3 font-poppins flex items-center justify-center md:justify-end gap-2'>
+                  <m.span
+                    className='inline-block w-1.5 h-1.5 bg-blue-500 rounded-full'
+                    animate={{ scale: [1, 1.4, 1] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+                  />
+                  Location
+                </h3>
+                <p className='text-gray-400 text-sm'>Ljubljana, Slovenia</p>
+              </m.div>
             </div>
-            <div>
-              <h3 className='text-xl font-bold mb-4'>Location</h3>
-              <p>Slovenia</p>
-            </div>
+
+            {/* Divider */}
+            <m.div
+              className='w-full h-px bg-gradient-to-r from-transparent via-gray-700 to-transparent mb-6'
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4, duration: 0.8 }}
+            />
+
+            {/* Copyright */}
+            <m.div
+              className='text-center text-gray-500 text-sm'
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5, duration: 0.5 }}
+            >
+              <p>© {new Date().getFullYear()} Mina Sesek Minic. All rights reserved.</p>
+            </m.div>
           </div>
-        </footer>
-      </div>
+        </m.footer>
+      </m.div>
     </LazyMotion>
   );
 }

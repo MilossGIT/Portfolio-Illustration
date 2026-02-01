@@ -1,10 +1,12 @@
 import React from 'react';
 import { m } from 'framer-motion';
-import aboutImage from '../about.jpg';
+
+// About image hosted on Cloudinary
+const aboutImage = 'https://res.cloudinary.com/dwerrhasa/image/upload/v1769940429/about_ke7was.jpg';
 
 const About = () => {
   return (
-    <section id='about' className='py-20 bg-white min-h-screen section-gradient'>
+    <section id='about' className='py-20 bg-white min-h-screen'>
       <div className='container mx-auto px-4'>
         <m.div
           initial={{ opacity: 0, y: 20 }}
@@ -13,30 +15,27 @@ const About = () => {
           viewport={{ once: true }}
           className='max-w-4xl mx-auto'
         >
-          <h2 className='text-4xl font-medium text-center mb-12 font-poppins tracking-tight'>About Me</h2>
+          <m.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className='text-4xl font-bold text-center mb-12 font-poppins tracking-tight text-gray-900'
+          >
+            About Me
+          </m.h2>
 
           <div className='grid md:grid-cols-2 gap-12 items-start'>
-            <div className='relative group sticky top-8'>
-              <div className='overflow-hidden glass-card shadow-lg relative hover-lift'>
-                {/* Subtle pink border accent */}
-                <div className='absolute inset-0 border border-pink-100 rounded-lg z-20'></div>
-
-                {/* Protective overlay */}
-                <div
-                  className='absolute inset-0 z-10'
-                  onContextMenu={(e) => e.preventDefault()}
-                  style={{
-                    cursor: 'default',
-                    userSelect: 'none',
-                    WebkitUserSelect: 'none',
-                  }}
-                />
-
-                {/* Main image with protection */}
+            <m.div
+              className='sticky top-24'
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <div className='overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300'>
                 <img
                   src={aboutImage}
                   alt='Mina Sesek Minic'
-                  className='w-full h-auto object-cover transition-all duration-300 group-hover:scale-105'
+                  className='w-full h-auto object-cover'
                   onContextMenu={(e) => e.preventDefault()}
                   draggable='false'
                   style={{
@@ -45,18 +44,17 @@ const About = () => {
                     pointerEvents: 'none',
                   }}
                 />
-
-                {/* Refined hover effect */}
-                <div className='absolute inset-0 bg-gradient-to-t from-pink-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
               </div>
-            </div>
+            </m.div>
 
-            <div className='space-y-8'>
+            <div className='space-y-4'>
               <div className='prose prose-lg'>
                 <m.p
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  className='text-lg leading-relaxed font-inter'
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  className='text-base leading-relaxed font-inter text-gray-700'
                 >
                   My name is Mina, an illustrator, engineer, and proud mom based
                   in Ljubljana, Slovenia. My journey has been anything but
@@ -66,10 +64,11 @@ const About = () => {
                 </m.p>
 
                 <m.p
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ delay: 0.4 }}
-                  className='text-lg leading-relaxed mt-6 font-inter'
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2, duration: 0.6 }}
+                  className='text-base leading-relaxed font-inter text-gray-700'
                 >
                   My inspiration flows from the everyday magic of life—watching
                   my daughter explore the world, our shared moments reading
@@ -80,10 +79,11 @@ const About = () => {
                 </m.p>
 
                 <m.p
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ delay: 0.6 }}
-                  className='text-lg leading-relaxed mt-6 font-inter'
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.4, duration: 0.6 }}
+                  className='text-base leading-relaxed font-inter text-gray-700'
                 >
                   From capturing the humorous reality of working from home (like
                   the time my daughter decided to become a hairdresser during my
@@ -95,30 +95,40 @@ const About = () => {
                 </m.p>
               </div>
 
-              {/* Social Links with subtle styling */}
-              <div className='pt-8 border-t border-pink-100'>
-                <h3 className='text-xl font-medium text-gray-800 mb-4 font-poppins'>
+              {/* Social Links */}
+              <m.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.6 }}
+                className='pt-6 border-t border-gray-200'
+              >
+                <h3 className='text-xl font-bold text-gray-900 mb-4 font-poppins'>
                   Find my work on
                 </h3>
-                <div className='flex space-x-6'>
-                  <a
+                <div className='flex space-x-4'>
+                  <m.a
                     href='https://www.behance.net/miminart'
                     target='_blank'
                     rel='noopener noreferrer'
-                    className='text-gray-600 hover:text-pink-500 transition-colors'
+                    className='text-gray-600 hover:text-pink-500 transition-colors font-medium'
+                    whileHover={{ scale: 1.05, x: 3 }}
+                    whileTap={{ scale: 0.95 }}
                   >
                     Behance
-                  </a>
-                  <a
+                  </m.a>
+                  <m.a
                     href='https://www.instagram.com/misemillustration/'
                     target='_blank'
                     rel='noopener noreferrer'
-                    className='text-gray-600 hover:text-pink-500 transition-colors'
+                    className='text-gray-600 hover:text-pink-500 transition-colors font-medium'
+                    whileHover={{ scale: 1.05, x: 3 }}
+                    whileTap={{ scale: 0.95 }}
                   >
                     Instagram
-                  </a>
+                  </m.a>
                 </div>
-              </div>
+              </m.div>
             </div>
           </div>
         </m.div>
