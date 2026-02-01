@@ -61,7 +61,7 @@ const Contact = () => {
   };
 
   return (
-    <section id='contact' className='py-20 bg-white'>
+    <section id='contact' className='py-6 bg-white'>
       <Toaster position='top-center' />
       <div className='container mx-auto px-4'>
         <m.div

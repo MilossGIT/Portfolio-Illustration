@@ -194,8 +194,8 @@ const Hero = () => {
                   // Add loading delay, then smooth scroll
                   setTimeout(() => {
                     const start = window.pageYOffset;
-                    // Scroll slightly past gallery top to ensure thumbnails are visible
-                    const target = gallery.getBoundingClientRect().top + window.pageYOffset + 100;
+                    // Scroll to gallery section - aim for the title to be visible
+                    const target = gallery.getBoundingClientRect().top + window.pageYOffset - 60;
                     const distance = target - start;
                     const duration = 900; // Slower: 900ms instead of 600ms
                     let startTime = null;
@@ -276,7 +276,7 @@ const Hero = () => {
 
       {/* Scroll Indicator */}
       <m.div
-        className='absolute bottom-8 left-1/2 transform -translate-x-1/2'
+        className='absolute bottom-12 left-1/2 transform -translate-x-1/2 z-10'
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 1.5, repeat: Infinity }}
       >

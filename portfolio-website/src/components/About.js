@@ -6,7 +6,7 @@ const aboutImage = 'https://res.cloudinary.com/dwerrhasa/image/upload/v176994042
 
 const About = () => {
   return (
-    <section id='about' className='py-20 bg-white min-h-screen'>
+    <section id='about' className='py-6 bg-white'>
       <div className='container mx-auto px-4'>
         <m.div
           initial={{ opacity: 0, y: 20 }}
