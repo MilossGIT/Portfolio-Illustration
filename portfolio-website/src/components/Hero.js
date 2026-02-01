@@ -197,7 +197,7 @@ const Hero = () => {
                     // Scroll to gallery section - aim for the title to be visible
                     const target = gallery.getBoundingClientRect().top + window.pageYOffset - 60;
                     const distance = target - start;
-                    const duration = 900; // Slower: 900ms instead of 600ms
+                    const duration = 700; // Faster scroll
                     let startTime = null;
 
                     const easeInOutQuart = (t) => {
@@ -225,13 +225,13 @@ const Hero = () => {
                             document.body.removeChild(overlay);
                             document.head.removeChild(style);
                             document.head.removeChild(dotsStyle);
-                          }, 600);
-                        }, 300);
+                          }, 400);
+                        }, 200);
                       }
                     };
 
                     requestAnimationFrame(animation);
-                  }, 1200); // Loading delay: 1200ms
+                  }, 800); // Shorter loading delay
                 } else {
                   // Desktop: loading delay, then smooth scroll with overlay
                   setTimeout(() => {
