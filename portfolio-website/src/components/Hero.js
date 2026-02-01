@@ -194,8 +194,8 @@ const Hero = () => {
                   // Add loading delay, then smooth scroll
                   setTimeout(() => {
                     const start = window.pageYOffset;
-                    // Scroll directly to gallery section top
-                    const target = gallery.getBoundingClientRect().top + window.pageYOffset;
+                    // Scroll slightly past gallery top to ensure thumbnails are visible
+                    const target = gallery.getBoundingClientRect().top + window.pageYOffset + 100;
                     const distance = target - start;
                     const duration = 900; // Slower: 900ms instead of 600ms
                     let startTime = null;

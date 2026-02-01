@@ -24,12 +24,15 @@ async function syncImages() {
 
         console.log('API Response:', result.resources.length, 'images found');
 
-        const images = result.resources.map((resource, index) => ({
-            id: index + 1,
-            publicId: resource.public_id,
-            src: `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto,w_800/${resource.public_id}`,
-            title: resource.public_id.split('/').pop() || `Illustration ${index + 1}`,
-        }));
+        // Filter out the about image and map resources
+        const images = result.resources
+            .filter(resource => !resource.public_id.toLowerCase().includes('about'))
+            .map((resource, index) => ({
+                id: index + 1,
+                publicId: resource.public_id,
+                src: `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto,w_800/${resource.public_id}`,
+                title: resource.public_id.split('/').pop() || `Illustration ${index + 1}`,
+            }));
 
         // Write to public folder so it's accessible
         const outputPath = path.join(__dirname, '../public/images-data.json');
