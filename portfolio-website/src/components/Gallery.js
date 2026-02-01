@@ -176,7 +176,7 @@ const Gallery = () => {
   };
 
   return (
-    <section id='gallery' className='pt-24 pb-20 bg-gray-50'>
+    <section id='gallery' className='pt-32 pb-20 bg-gray-50'>
       <div className='container mx-auto px-4'>
         <m.div
           initial={{ opacity: 0, y: 20 }}
@@ -263,7 +263,7 @@ const Gallery = () => {
           <>
             {/* Mobile Swiper View */}
             {mobile ? (
-              <div className='relative max-w-md mx-auto touch-pan-y'>
+              <div className='relative max-w-md mx-auto'>
                 <div className='relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl'>
                   <m.img
                     key={currentMobileIndex}
@@ -272,14 +272,14 @@ const Gallery = () => {
                     className='w-full h-full object-cover select-none'
                     drag='x'
                     dragConstraints={{ left: 0, right: 0 }}
-                    dragElastic={0.2}
+                    dragElastic={0.1}
                     dragMomentum={false}
                     dragDirectionLock
                     onDragEnd={(e, { offset, velocity }) => {
-                      // Sensitive swipe detection
-                      if (offset.x < -30) {
+                      // Very sensitive swipe detection
+                      if (offset.x < -20) {
                         handleMobileSwipe('left');
-                      } else if (offset.x > 30) {
+                      } else if (offset.x > 20) {
                         handleMobileSwipe('right');
                       }
                     }}
