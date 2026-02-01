@@ -118,7 +118,7 @@ const About = () => {
                     Behance
                   </m.a>
                   <m.a
-                    href='https://www.instagram.com/misemillustration/'
+                    href='https://www.instagram.com/misemillustrations/'
                     target='_blank'
                     rel='noopener noreferrer'
                     className='text-gray-600 hover:text-pink-500 transition-colors font-medium'

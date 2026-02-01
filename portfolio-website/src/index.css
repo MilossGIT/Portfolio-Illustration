@@ -26,6 +26,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
   }
 
   body {
@@ -41,6 +42,36 @@
     width: 100%;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
     font-optical-sizing: auto;
+    overscroll-behavior-y: none;
+    /* Better mobile scrolling */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Ensure smooth section transitions */
+  section {
+    scroll-margin-top: 80px;
+    position: relative;
+  }
+
+  /* Allow scrolling through all sections */
+  #root,
+  #root > div {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  /* Mobile-specific improvements */
+  @media (max-width: 768px) {
+    body {
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Disable hover effects on mobile */
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
   }
 
   h1,
@@ -166,6 +197,25 @@
     background: rgba(255, 255, 255, 0.9);
     transform: translateY(-3px);
     box-shadow: var(--box-shadow-lg);
+  }
+
+  /* Scrollbar styles for mobile thumbnail strip */
+  .scrollbar-thin::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: rgba(236, 72, 153, 0.5);
+    border-radius: 10px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: rgba(236, 72, 153, 0.8);
   }
 
   .container {

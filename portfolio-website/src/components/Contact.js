@@ -161,7 +161,7 @@ const Contact = () => {
                       whileHover={{ y: -5, scale: 1.1 }}
                       whileTap={{ scale: 0.95 }}
                       transition={{ type: 'spring', stiffness: 400 }}
-                      href='https://www.instagram.com/misemillustration/'
+                      href='https://www.instagram.com/misemillustrations/'
                       target='_blank'
                       rel='noopener noreferrer'
                       className='p-2 bg-gray-100 rounded-full hover:bg-pink-100 transition-colors'
