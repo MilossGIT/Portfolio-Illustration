@@ -39,4 +39,9 @@ jobs:
           git config --global user.name 'GitHub Actions Bot'
           git config --global user.email 'actions@github.com'
           git add portfolio-website/public/images-data.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "🔄 Auto-sync images from Cloudinary [skip ci]" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "🔄 Auto-sync images from Cloudinary" && git push)
+
+      - name: Trigger Vercel Deployment
+        if: success()
+        run: |
+          curl -X POST "${{ secrets.VERCEL_DEPLOY_HOOK }}"
