@@ -2,6 +2,11 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
+// Check if device is mobile
+const isMobile = () => {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+};
+
 // Shuffle function for randomizing array order
 const shuffleArray = (array) => {
   const shuffled = [...array];
@@ -126,10 +131,10 @@ const Gallery = () => {
   const imageVariants = {
     loading: {
       opacity: 0,
-      scale: 0.6,
-      filter: 'blur(20px)',
-      rotateY: -25,
-      y: 30,
+      scale: isMobile() ? 0.95 : 0.6,
+      filter: isMobile() ? 'blur(0px)' : 'blur(20px)',
+      rotateY: isMobile() ? 0 : -25,
+      y: isMobile() ? 10 : 30,
     },
     loaded: {
       opacity: 1,
@@ -137,7 +142,10 @@ const Gallery = () => {
       filter: 'blur(0px)',
       rotateY: 0,
       y: 0,
-      transition: {
+      transition: isMobile() ? {
+        duration: 0.4,
+        ease: 'easeOut'
+      } : {
         duration: 1.2,
         ease: [0.19, 1.0, 0.22, 1.0],
         opacity: { duration: 0.6, delay: 0.2 },
@@ -195,10 +203,10 @@ const Gallery = () => {
             {images.map((image, index) => (
               <m.div
                 key={image.id}
-                variants={itemVariants}
+                variants={!isMobile() ? itemVariants : undefined}
                 className='relative group cursor-pointer overflow-visible'
                 onClick={() => setSelectedImage(image)}
-                whileHover={{
+                whileHover={!isMobile() ? {
                   scale: 1.05,
                   y: -12,
                   rotateZ: index % 2 === 0 ? 2 : -2,
@@ -206,7 +214,7 @@ const Gallery = () => {
                     duration: 0.4,
                     ease: [0.34, 1.56, 0.64, 1]
                   }
-                }}
+                } : undefined}
                 style={{ perspective: '1000px' }}
               >
                 <div className='aspect-w-4 aspect-h-3 relative glass-card rounded-lg overflow-hidden shadow-lg'>
