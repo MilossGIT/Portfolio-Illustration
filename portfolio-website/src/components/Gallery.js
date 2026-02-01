@@ -287,20 +287,20 @@ const Gallery = () => {
                   <m.img
                     src={images[currentMobileIndex].src}
                     alt={images[currentMobileIndex].title}
-                    className='w-full h-full object-cover'
+                    className='w-full h-full object-cover touch-pan-y'
                     drag='x'
                     dragConstraints={{ left: 0, right: 0 }}
-                    dragElastic={0.2}
+                    dragElastic={0.3}
+                    dragMomentum={false}
                     onDragEnd={(e, { offset, velocity }) => {
-                      const swipe = Math.abs(offset.x) * velocity.x;
-                      if (swipe > 10000) {
-                        handleMobileSwipe('right');
-                      } else if (swipe < -10000) {
+                      // More sensitive swipe detection for mobile
+                      if (offset.x < -50 || velocity.x < -500) {
                         handleMobileSwipe('left');
+                      } else if (offset.x > 50 || velocity.x > 500) {
+                        handleMobileSwipe('right');
                       }
                     }}
-                    whileTap={{ cursor: 'grabbing' }}
-                    onClick={() => setSelectedImage(images[currentMobileIndex])}
+                    onTap={() => setSelectedImage(images[currentMobileIndex])}
                   />
 
                   {/* Swipe indicator */}
