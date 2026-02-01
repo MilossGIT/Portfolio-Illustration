@@ -197,14 +197,57 @@ const Hero = () => {
                     // Scroll to gallery section - aim for the title to be visible
                     const target = gallery.getBoundingClientRect().top + window.pageYOffset - 60;
                     const distance = target - start;
-                    const duration = 700; // Faster scroll
+                    const duration = 700;
                     let startTime = null;
+                    let animationId = null;
+                    let cancelled = false;
 
                     const easeInOutQuart = (t) => {
                       return t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
                     };
 
+                    // Cancel animation if user tries to touch/scroll
+                    const cancelAnimation = () => {
+                      cancelled = true;
+                      if (animationId) {
+                        cancelAnimationFrame(animationId);
+                      }
+                      cleanup();
+                    };
+
+                    const cleanup = () => {
+                      // Remove event listeners
+                      window.removeEventListener('touchstart', cancelAnimation);
+                      window.removeEventListener('wheel', cancelAnimation);
+
+                      // Fade out and remove elements
+                      loadingText.style.opacity = '0';
+                      setTimeout(() => {
+                        if (document.body.contains(loadingText)) {
+                          document.body.removeChild(loadingText);
+                        }
+                        overlay.style.opacity = '0';
+                        setTimeout(() => {
+                          if (document.body.contains(overlay)) {
+                            document.body.removeChild(overlay);
+                          }
+                          if (document.head.contains(style)) {
+                            document.head.removeChild(style);
+                          }
+                          if (document.head.contains(dotsStyle)) {
+                            document.head.removeChild(dotsStyle);
+                          }
+                        }, 400);
+                      }, 200);
+                    };
+
+                    // Listen for user scroll attempts
+                    window.addEventListener('touchstart', cancelAnimation, { passive: true });
+                    window.addEventListener('wheel', cancelAnimation, { passive: true });
+
                     const animation = (currentTime) => {
+                      if (cancelled) return;
+
                       if (startTime === null) startTime = currentTime;
                       const timeElapsed = currentTime - startTime;
                       const progress = Math.min(timeElapsed / duration, 1);
@@ -213,25 +256,14 @@ const Hero = () => {
                       window.scrollTo(0, start + distance * ease);
 
                       if (timeElapsed < duration) {
-                        requestAnimationFrame(animation);
+                        animationId = requestAnimationFrame(animation);
                       } else {
-                        // Fade out loading text first
-                        loadingText.style.opacity = '0';
-                        setTimeout(() => {
-                          document.body.removeChild(loadingText);
-                          // Then fade out overlay
-                          overlay.style.opacity = '0';
-                          setTimeout(() => {
-                            document.body.removeChild(overlay);
-                            document.head.removeChild(style);
-                            document.head.removeChild(dotsStyle);
-                          }, 400);
-                        }, 200);
+                        cleanup();
                       }
                     };
 
-                    requestAnimationFrame(animation);
-                  }, 800); // Shorter loading delay
+                    animationId = requestAnimationFrame(animation);
+                  }, 800);
                 } else {
                   // Desktop: loading delay, then smooth scroll with overlay
                   setTimeout(() => {
