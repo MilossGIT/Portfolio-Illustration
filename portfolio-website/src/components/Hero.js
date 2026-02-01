@@ -197,7 +197,8 @@ const Hero = () => {
 
                   const cleanup = () => {
                     // Remove event listeners
-                    window.removeEventListener('touchstart', cancelAll);
+                    window.removeEventListener('touchmove', cancelAll);
+                    window.removeEventListener('scroll', cancelAll);
                     window.removeEventListener('wheel', cancelAll);
 
                     // Clear any pending timeouts
@@ -237,7 +238,8 @@ const Hero = () => {
                   };
 
                   // Listen for user scroll attempts IMMEDIATELY
-                  window.addEventListener('touchstart', cancelAll, { passive: true });
+                  window.addEventListener('touchmove', cancelAll, { passive: true });
+                  window.addEventListener('scroll', cancelAll, { passive: true });
                   window.addEventListener('wheel', cancelAll, { passive: true });
 
                   // Add loading delay, then smooth scroll
