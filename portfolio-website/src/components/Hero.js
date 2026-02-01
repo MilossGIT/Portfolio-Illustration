@@ -233,9 +233,23 @@ const Hero = () => {
                   // Detect user-initiated scroll (not programmatic)
                   const handleUserScroll = (e) => {
                     if (userScrollDetected || cancelled) return;
+                    console.log('User scroll detected - STOPPING immediately');
                     userScrollDetected = true;
                     cancelled = true;
-                    console.log('User scroll detected, canceling animation');
+
+                    // IMMEDIATELY cancel animation frame
+                    if (animationId) {
+                      cancelAnimationFrame(animationId);
+                      animationId = null;
+                    }
+
+                    // IMMEDIATELY clear timeout
+                    if (timeoutId) {
+                      clearTimeout(timeoutId);
+                      timeoutId = null;
+                    }
+
+                    // Then cleanup UI elements (can be delayed)
                     cleanup();
                   };
 
