@@ -176,7 +176,7 @@ const Gallery = () => {
   };
 
   return (
-    <section id='gallery' className='py-20 bg-gray-50'>
+    <section id='gallery' className='pt-24 pb-20 bg-gray-50'>
       <div className='container mx-auto px-4'>
         <m.div
           initial={{ opacity: 0, y: 20 }}
@@ -263,40 +263,23 @@ const Gallery = () => {
           <>
             {/* Mobile Swiper View */}
             {mobile ? (
-              <m.div
-                className='relative max-w-md mx-auto'
-                initial={{ opacity: 0, scale: 0.7, y: 100 }}
-                whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{
-                  duration: 0.9,
-                  type: 'spring',
-                  stiffness: 100,
-                  damping: 20,
-                  opacity: { duration: 0.6 },
-                  scale: { duration: 0.7, type: 'spring', stiffness: 120, damping: 18 }
-                }}
-              >
-                <m.div
-                  className='relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl'
-                  key={currentMobileIndex}
-                  initial={{ opacity: 0, scale: 0.9, rotateY: -15 }}
-                  animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-                  transition={{ duration: 0.5, ease: 'easeOut' }}
-                >
+              <div className='relative max-w-md mx-auto touch-pan-y'>
+                <div className='relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl'>
                   <m.img
+                    key={currentMobileIndex}
                     src={images[currentMobileIndex].src}
                     alt={images[currentMobileIndex].title}
-                    className='w-full h-full object-cover touch-pan-y'
+                    className='w-full h-full object-cover select-none'
                     drag='x'
                     dragConstraints={{ left: 0, right: 0 }}
-                    dragElastic={0.3}
+                    dragElastic={0.2}
                     dragMomentum={false}
+                    dragDirectionLock
                     onDragEnd={(e, { offset, velocity }) => {
-                      // More sensitive swipe detection for mobile
-                      if (offset.x < -50 || velocity.x < -500) {
+                      // Sensitive swipe detection
+                      if (offset.x < -30) {
                         handleMobileSwipe('left');
-                      } else if (offset.x > 50 || velocity.x > 500) {
+                      } else if (offset.x > 30) {
                         handleMobileSwipe('right');
                       }
                     }}
@@ -340,7 +323,7 @@ const Gallery = () => {
                       <span className='text-xs text-gray-600'>← Swipe to browse →</span>
                     </div>
                   </m.div>
-                </m.div>
+                </div>
 
                 {/* Thumbnail strip */}
                 <div className='flex gap-2 mt-6 overflow-x-auto pb-4 px-2 scrollbar-thin'>
@@ -362,7 +345,7 @@ const Gallery = () => {
                     </m.button>
                   ))}
                 </div>
-              </m.div>
+              </div>
             ) : (
               /* Desktop Grid View */
               <m.div
