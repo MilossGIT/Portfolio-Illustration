@@ -191,59 +191,69 @@ const Hero = () => {
                 });
 
                 if (isMobile) {
+                  let timeoutId = null;
+                  let animationId = null;
+                  let cancelled = false;
+
+                  const cleanup = () => {
+                    // Remove event listeners
+                    window.removeEventListener('touchstart', cancelAll);
+                    window.removeEventListener('wheel', cancelAll);
+
+                    // Clear any pending timeouts
+                    if (timeoutId) {
+                      clearTimeout(timeoutId);
+                    }
+                    if (animationId) {
+                      cancelAnimationFrame(animationId);
+                    }
+
+                    // Fade out and remove elements
+                    loadingText.style.opacity = '0';
+                    setTimeout(() => {
+                      if (document.body.contains(loadingText)) {
+                        document.body.removeChild(loadingText);
+                      }
+                      overlay.style.opacity = '0';
+                      setTimeout(() => {
+                        if (document.body.contains(overlay)) {
+                          document.body.removeChild(overlay);
+                        }
+                        if (document.head.contains(style)) {
+                          document.head.removeChild(style);
+                        }
+                        if (document.head.contains(dotsStyle)) {
+                          document.head.removeChild(dotsStyle);
+                        }
+                      }, 400);
+                    }, 200);
+                  };
+
+                  // Cancel everything if user tries to touch/scroll
+                  const cancelAll = () => {
+                    if (cancelled) return;
+                    cancelled = true;
+                    cleanup();
+                  };
+
+                  // Listen for user scroll attempts IMMEDIATELY
+                  window.addEventListener('touchstart', cancelAll, { passive: true });
+                  window.addEventListener('wheel', cancelAll, { passive: true });
+
                   // Add loading delay, then smooth scroll
-                  setTimeout(() => {
+                  timeoutId = setTimeout(() => {
+                    if (cancelled) return;
+
                     const start = window.pageYOffset;
                     // Scroll to gallery section - aim for the title to be visible
                     const target = gallery.getBoundingClientRect().top + window.pageYOffset - 60;
                     const distance = target - start;
                     const duration = 700;
                     let startTime = null;
-                    let animationId = null;
-                    let cancelled = false;
 
                     const easeInOutQuart = (t) => {
                       return t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
                     };
-
-                    // Cancel animation if user tries to touch/scroll
-                    const cancelAnimation = () => {
-                      cancelled = true;
-                      if (animationId) {
-                        cancelAnimationFrame(animationId);
-                      }
-                      cleanup();
-                    };
-
-                    const cleanup = () => {
-                      // Remove event listeners
-                      window.removeEventListener('touchstart', cancelAnimation);
-                      window.removeEventListener('wheel', cancelAnimation);
-
-                      // Fade out and remove elements
-                      loadingText.style.opacity = '0';
-                      setTimeout(() => {
-                        if (document.body.contains(loadingText)) {
-                          document.body.removeChild(loadingText);
-                        }
-                        overlay.style.opacity = '0';
-                        setTimeout(() => {
-                          if (document.body.contains(overlay)) {
-                            document.body.removeChild(overlay);
-                          }
-                          if (document.head.contains(style)) {
-                            document.head.removeChild(style);
-                          }
-                          if (document.head.contains(dotsStyle)) {
-                            document.head.removeChild(dotsStyle);
-                          }
-                        }, 400);
-                      }, 200);
-                    };
-
-                    // Listen for user scroll attempts
-                    window.addEventListener('touchstart', cancelAnimation, { passive: true });
-                    window.addEventListener('wheel', cancelAnimation, { passive: true });
 
                     const animation = (currentTime) => {
                       if (cancelled) return;
