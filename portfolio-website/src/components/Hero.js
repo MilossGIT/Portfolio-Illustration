@@ -5,7 +5,8 @@ const Hero = () => {
   return (
     <section
       id='home'
-      className='relative min-h-screen flex items-center justify-center bg-gradient-to-b from-white via-pink-50/30 to-white'
+      className='relative flex items-center justify-center bg-gradient-to-b from-white via-pink-50/30 to-white'
+      style={{ minHeight: '100vh', touchAction: 'pan-y' }}
     >
       {/* Content */}
       <div className='relative z-10 container mx-auto px-4 text-center'>
@@ -91,7 +92,12 @@ const Hero = () => {
               whileTap={{ scale: 0.95 }}
               onClick={() => {
                 const gallery = document.getElementById('gallery');
-                const isMobile = window.innerWidth < 768;
+                const isMobile = window.innerWidth < 1024; // Increased from 768 to include tablets
+
+                // Ensure body can scroll
+                document.body.style.overflow = '';
+                document.body.style.position = '';
+                document.body.style.width = '';
 
                 // Create cinematic overlay transition (for both mobile and desktop)
                 const overlay = document.createElement('div');
@@ -99,8 +105,10 @@ const Hero = () => {
                   position: fixed;
                   top: 0;
                   left: 0;
-                  width: 100vw;
-                  height: 100vh;
+                  width: 100%;
+                  height: 100%;
+                  right: 0;
+                  bottom: 0;
                   background: radial-gradient(circle at center, rgba(236, 72, 153, 1), rgba(168, 85, 247, 1));
                   z-index: 9999;
                   opacity: 0;
@@ -110,36 +118,57 @@ const Hero = () => {
                 `;
                 document.body.appendChild(overlay);
 
-                // Add loading text
-                const loadingText = document.createElement('div');
-                loadingText.style.cssText = `
+                // Add elegant icon/animation instead of text
+                const loadingIcon = document.createElement('div');
+                loadingIcon.style.cssText = `
                   position: fixed;
                   top: 50%;
                   left: 50%;
                   transform: translate(-50%, -50%);
                   z-index: 10000;
-                  color: white;
-                  font-size: 24px;
-                  font-weight: 600;
-                  font-family: 'Poppins', sans-serif;
                   opacity: 0;
                   transition: opacity 0.5s ease-in-out;
                   pointer-events: none;
                   text-align: center;
                 `;
-                loadingText.innerHTML = 'Loading Gallery<span style="animation: dots 1.5s infinite;">...</span>';
-                document.body.appendChild(loadingText);
+                loadingIcon.innerHTML = `
+                  <div style="
+                    width: 80px;
+                    height: 80px;
+                    margin: 0 auto 20px;
+                    border-radius: 50%;
+                    background: linear-gradient(45deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    animation: pulse 2s ease-in-out infinite;
+                    box-shadow: 0 10px 40px rgba(255, 255, 255, 0.3);
+                  ">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                      <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <div style="
+                    color: white;
+                    font-size: 18px;
+                    font-weight: 500;
+                    font-family: 'Poppins', sans-serif;
+                    letter-spacing: 1px;
+                  ">
+                    ✨
+                  </div>
+                `;
+                document.body.appendChild(loadingIcon);
 
-                // Add dots animation
-                const dotsStyle = document.createElement('style');
-                dotsStyle.textContent = `
-                  @keyframes dots {
-                    0%, 20% { content: '.'; }
-                    40% { content: '..'; }
-                    60%, 100% { content: '...'; }
+                // Add pulse animation
+                const pulseStyle = document.createElement('style');
+                pulseStyle.textContent = `
+                  @keyframes pulse {
+                    0%, 100% { transform: scale(1); opacity: 1; }
+                    50% { transform: scale(1.1); opacity: 0.8; }
                   }
                 `;
-                document.head.appendChild(dotsStyle);
+                document.head.appendChild(pulseStyle);
 
                 // Create glitter particles (slower and more)
                 const glitterCount = 40;
@@ -184,145 +213,61 @@ const Hero = () => {
                 // Fade in overlay
                 requestAnimationFrame(() => {
                   overlay.style.opacity = '1';
-                  // Fade in loading text after overlay
+                  // Fade in loading icon after overlay
                   setTimeout(() => {
-                    loadingText.style.opacity = '1';
+                    loadingIcon.style.opacity = '1';
                   }, 300);
                 });
 
                 if (isMobile) {
-                  let timeoutId = null;
-                  let animationId = null;
-                  let cancelled = false;
-                  let userScrollDetected = false;
-                  let scrollListenersActive = false;
+                  // Simple approach: use native smooth scroll after overlay
+                  setTimeout(() => {
+                    gallery.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-                  const cleanup = (immediate = false) => {
-                    // Remove event listeners first
-                    if (scrollListenersActive) {
-                      window.removeEventListener('touchmove', handleUserScroll, { capture: true });
-                      window.removeEventListener('wheel', handleUserScroll, { capture: true });
-                      window.removeEventListener('touchstart', handleUserScroll, { capture: true });
-                      scrollListenersActive = false;
-                    }
-
-                    // Clear any pending timeouts/animations
-                    if (timeoutId) {
-                      clearTimeout(timeoutId);
-                      timeoutId = null;
-                    }
-                    if (animationId) {
-                      cancelAnimationFrame(animationId);
-                      animationId = null;
-                    }
-
-                    // Fade out and remove elements
-                    const fadeOutDelay = immediate ? 0 : 200;
-                    const removeDelay = immediate ? 0 : 400;
-
-                    loadingText.style.opacity = '0';
+                    // Fade out loading icon first
                     setTimeout(() => {
-                      if (document.body.contains(loadingText)) {
-                        document.body.removeChild(loadingText);
-                      }
-                      overlay.style.opacity = '0';
+                      loadingIcon.style.opacity = '0';
                       setTimeout(() => {
-                        if (document.body.contains(overlay)) {
-                          document.body.removeChild(overlay);
+                        if (document.body.contains(loadingIcon)) {
+                          document.body.removeChild(loadingIcon);
                         }
-                        if (document.head.contains(style)) {
-                          document.head.removeChild(style);
-                        }
-                        if (document.head.contains(dotsStyle)) {
-                          document.head.removeChild(dotsStyle);
-                        }
-                      }, removeDelay);
-                    }, fadeOutDelay);
-                  };
-
-                  // Detect user-initiated scroll/touch (not programmatic)
-                  const handleUserScroll = (e) => {
-                    if (userScrollDetected || cancelled) return;
-                    userScrollDetected = true;
-                    cancelled = true;
-
-                    // IMMEDIATELY cancel animation and clear timeouts
-                    if (animationId) {
-                      cancelAnimationFrame(animationId);
-                      animationId = null;
-                    }
-                    if (timeoutId) {
-                      clearTimeout(timeoutId);
-                      timeoutId = null;
-                    }
-
-                    // Cleanup immediately (no delay) to restore scroll control
-                    cleanup(true);
-                  };
-
-                  // Add event listeners BEFORE starting animation with capture phase for priority
-                  window.addEventListener('touchstart', handleUserScroll, { passive: true, capture: true });
-                  window.addEventListener('touchmove', handleUserScroll, { passive: true, capture: true });
-                  window.addEventListener('wheel', handleUserScroll, { passive: true, capture: true });
-                  scrollListenersActive = true;
-
-                  // Add loading delay, then smooth scroll
-                  timeoutId = setTimeout(() => {
-                    if (cancelled) {
-                      cleanup(true);
-                      return;
-                    }
-
-                    const start = window.pageYOffset;
-                    const target = gallery.getBoundingClientRect().top + window.pageYOffset - 60;
-                    const distance = target - start;
-                    const duration = 700;
-                    let startTime = null;
-
-                    const easeInOutQuart = (t) => {
-                      return t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
-                    };
-
-                    const animation = (currentTime) => {
-                      if (cancelled) {
-                        cleanup(true);
-                        return;
-                      }
-
-                      if (startTime === null) startTime = currentTime;
-                      const timeElapsed = currentTime - startTime;
-                      const progress = Math.min(timeElapsed / duration, 1);
-                      const ease = easeInOutQuart(progress);
-
-                      window.scrollTo(0, start + distance * ease);
-
-                      if (timeElapsed < duration) {
-                        animationId = requestAnimationFrame(animation);
-                      } else {
-                        // Animation completed successfully
-                        cleanup(false);
-                      }
-                    };
-
-                    animationId = requestAnimationFrame(animation);
+                        // Then fade out overlay
+                        overlay.style.opacity = '0';
+                        setTimeout(() => {
+                          if (document.body.contains(overlay)) {
+                            document.body.removeChild(overlay);
+                          }
+                          if (document.head.contains(style)) {
+                            document.head.removeChild(style);
+                          }
+                          if (document.head.contains(pulseStyle)) {
+                            document.head.removeChild(pulseStyle);
+                          }
+                          // CRITICAL: Ensure body scroll is enabled
+                          document.body.style.overflow = '';
+                          document.body.style.position = '';
+                          document.body.style.touchAction = '';
+                        }, 400);
+                      }, 200);
+                    }, 800);
                   }, 800);
                 } else {
                   // Desktop: loading delay, then smooth scroll with overlay
                   setTimeout(() => {
                     gallery.scrollIntoView({ behavior: 'smooth' });
 
-                    // Fade out loading text first
+                    // Fade out loading icon first
                     setTimeout(() => {
-                      loadingText.style.opacity = '0';
+                      loadingIcon.style.opacity = '0';
                       setTimeout(() => {
-                        document.body.removeChild(loadingText);
+                        document.body.removeChild(loadingIcon);
                         // Then fade out overlay after scroll
                         setTimeout(() => {
                           overlay.style.opacity = '0';
                           setTimeout(() => {
                             document.body.removeChild(overlay);
                             document.head.removeChild(style);
-                            document.head.removeChild(dotsStyle);
+                            document.head.removeChild(pulseStyle);
                           }, 600);
                         }, 800);
                       }, 300);
@@ -350,7 +295,8 @@ const Hero = () => {
 
       {/* Scroll Indicator */}
       <m.div
-        className='absolute bottom-12 left-1/2 transform -translate-x-1/2 z-10'
+        className='absolute bottom-12 z-10'
+        style={{ left: '50%', x: '-50%' }}
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 1.5, repeat: Infinity }}
       >
@@ -358,7 +304,7 @@ const Hero = () => {
           <div className='w-1 h-3 bg-pink-500 rounded-full mt-2' />
         </div>
       </m.div>
-    </section >
+    </section>
   );
 };
 

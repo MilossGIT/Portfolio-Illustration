@@ -9,12 +9,7 @@ import { LazyMotion, domAnimation, m } from 'framer-motion';
 function App() {
   return (
     <LazyMotion features={domAnimation}>
-      <m.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        className='min-h-screen bg-gray-50 overflow-x-hidden'
-      >
+      <div className='bg-gray-50' style={{ minHeight: '100vh' }}>
         <Navigation />
         <Hero />
 
@@ -141,7 +136,7 @@ function App() {
             </m.div>
           </div>
         </m.footer>
-      </m.div>
+      </div>
     </LazyMotion>
   );
 }
