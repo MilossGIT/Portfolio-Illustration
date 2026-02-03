@@ -195,21 +195,31 @@ const Hero = () => {
                   let animationId = null;
                   let cancelled = false;
                   let userScrollDetected = false;
+                  let scrollListenersActive = false;
 
-                  const cleanup = () => {
-                    // Remove event listeners
-                    window.removeEventListener('touchmove', handleUserScroll);
-                    window.removeEventListener('wheel', handleUserScroll);
+                  const cleanup = (immediate = false) => {
+                    // Remove event listeners first
+                    if (scrollListenersActive) {
+                      window.removeEventListener('touchmove', handleUserScroll, { capture: true });
+                      window.removeEventListener('wheel', handleUserScroll, { capture: true });
+                      window.removeEventListener('touchstart', handleUserScroll, { capture: true });
+                      scrollListenersActive = false;
+                    }
 
-                    // Clear any pending timeouts
+                    // Clear any pending timeouts/animations
                     if (timeoutId) {
                       clearTimeout(timeoutId);
+                      timeoutId = null;
                     }
                     if (animationId) {
                       cancelAnimationFrame(animationId);
+                      animationId = null;
                     }
 
                     // Fade out and remove elements
+                    const fadeOutDelay = immediate ? 0 : 200;
+                    const removeDelay = immediate ? 0 : 400;
+
                     loadingText.style.opacity = '0';
                     setTimeout(() => {
                       if (document.body.contains(loadingText)) {
@@ -226,43 +236,44 @@ const Hero = () => {
                         if (document.head.contains(dotsStyle)) {
                           document.head.removeChild(dotsStyle);
                         }
-                      }, 400);
-                    }, 200);
+                      }, removeDelay);
+                    }, fadeOutDelay);
                   };
 
-                  // Detect user-initiated scroll (not programmatic)
+                  // Detect user-initiated scroll/touch (not programmatic)
                   const handleUserScroll = (e) => {
                     if (userScrollDetected || cancelled) return;
-                    console.log('User scroll detected - STOPPING immediately');
                     userScrollDetected = true;
                     cancelled = true;
 
-                    // IMMEDIATELY cancel animation frame
+                    // IMMEDIATELY cancel animation and clear timeouts
                     if (animationId) {
                       cancelAnimationFrame(animationId);
                       animationId = null;
                     }
-
-                    // IMMEDIATELY clear timeout
                     if (timeoutId) {
                       clearTimeout(timeoutId);
                       timeoutId = null;
                     }
 
-                    // Then cleanup UI elements (can be delayed)
-                    cleanup();
+                    // Cleanup immediately (no delay) to restore scroll control
+                    cleanup(true);
                   };
 
-                  // Listen for user scroll attempts IMMEDIATELY (not 'scroll' event - it conflicts with our animation)
-                  window.addEventListener('touchmove', handleUserScroll, { passive: true });
-                  window.addEventListener('wheel', handleUserScroll, { passive: true });
+                  // Add event listeners BEFORE starting animation with capture phase for priority
+                  window.addEventListener('touchstart', handleUserScroll, { passive: true, capture: true });
+                  window.addEventListener('touchmove', handleUserScroll, { passive: true, capture: true });
+                  window.addEventListener('wheel', handleUserScroll, { passive: true, capture: true });
+                  scrollListenersActive = true;
 
                   // Add loading delay, then smooth scroll
                   timeoutId = setTimeout(() => {
-                    if (cancelled) return;
+                    if (cancelled) {
+                      cleanup(true);
+                      return;
+                    }
 
                     const start = window.pageYOffset;
-                    // Scroll to gallery section - aim for the title to be visible
                     const target = gallery.getBoundingClientRect().top + window.pageYOffset - 60;
                     const distance = target - start;
                     const duration = 700;
@@ -274,7 +285,7 @@ const Hero = () => {
 
                     const animation = (currentTime) => {
                       if (cancelled) {
-                        cleanup();
+                        cleanup(true);
                         return;
                       }
 
@@ -288,7 +299,8 @@ const Hero = () => {
                       if (timeElapsed < duration) {
                         animationId = requestAnimationFrame(animation);
                       } else {
-                        cleanup();
+                        // Animation completed successfully
+                        cleanup(false);
                       }
                     };
 
