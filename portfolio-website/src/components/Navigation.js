@@ -34,13 +34,17 @@ function Navigation() {
             className='flex items-center min-w-0 flex-1 pr-1 outline-none ring-offset-0 md:flex-none md:shrink-0 md:w-auto md:max-w-[34rem] lg:max-w-[38rem] md:pr-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/40 focus-visible:ring-offset-0'
             aria-label='Home'
           >
-            <img
-              src={signatureLogo}
-              alt='Mina Sesek Minic'
-              className='block h-12 w-auto max-w-full border-0 bg-transparent object-contain object-left shadow-none outline-none ring-0 filter-none transition-opacity hover:opacity-90 md:h-[4.75rem] lg:h-[5.125rem]'
-              draggable={false}
-              decoding='async'
-            />
+            {/* Tight crop + slight scale clips residual soft PNG edges (not CSS drop-shadow). */}
+            <span className='inline-flex h-12 max-h-12 max-w-full items-center overflow-hidden md:h-[4.75rem] md:max-h-[4.75rem] lg:h-[5.125rem] lg:max-h-[5.125rem]'>
+              <img
+                src={signatureLogo}
+                alt='Mina Sesek Minic'
+                style={{ filter: 'none' }}
+                className='block h-full w-auto max-w-none origin-left scale-[1.04] border-0 bg-white object-contain object-left shadow-none outline-none ring-0 transition-opacity hover:opacity-90 [backface-visibility:hidden]'
+                draggable={false}
+                decoding='async'
+              />
+            </span>
           </Link>
 
           <div className='hidden md:flex items-center space-x-1 shrink-0'>

@@ -5,9 +5,11 @@ import Footer from './Footer';
 
 function Layout() {
   return (
-    <div className='flex min-h-full flex-col bg-gray-50'>
+    <div className='flex min-h-[100dvh] flex-col bg-gray-50'>
       <Navigation />
-      <Outlet />
+      <main className='relative z-0 w-full flex-1'>
+        <Outlet />
+      </main>
       <Footer />
     </div>
   );

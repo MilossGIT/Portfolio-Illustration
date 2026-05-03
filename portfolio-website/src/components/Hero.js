@@ -23,7 +23,7 @@ const Hero = () => {
           <img
             src={coverImage}
             alt='The Trouble With Hector cover'
-            className='block w-full max-w-[100vw] h-auto align-top'
+            className='block h-auto w-full max-w-full align-top'
             sizes='100vw'
             draggable={false}
             onContextMenu={(e) => e.preventDefault()}
