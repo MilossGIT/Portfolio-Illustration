@@ -12,7 +12,6 @@ const Hero = () => {
     <section
       id='home'
       className='relative overflow-x-hidden bg-white'
-      style={{ touchAction: 'pan-y' }}
     >
       <div className='w-full pt-[5.75rem] sm:pt-[6rem] md:pt-[6.375rem] lg:pt-[6.75rem]'>
         <m.div

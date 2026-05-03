@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
-import signatureLogo from '../hector/signature.png';
+import signatureLogo from '../hector/signature-on-white.png';
 
 const navLinkClass =
   ({ isActive }) =>
@@ -31,13 +31,13 @@ function Navigation() {
         <div className='flex justify-between items-center gap-2 sm:gap-3 py-3 sm:py-[0.9rem]'>
           <Link
             to='/'
-            className='flex items-center min-w-0 flex-1 pr-1 sm:flex-none sm:pr-0 sm:max-w-[28rem] md:max-w-[34rem] lg:max-w-[38rem]'
+            className='flex items-center min-w-0 flex-1 pr-1 outline-none ring-offset-0 md:flex-none md:shrink-0 md:w-auto md:max-w-[34rem] lg:max-w-[38rem] md:pr-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/40 focus-visible:ring-offset-0'
             aria-label='Home'
           >
             <img
               src={signatureLogo}
               alt='Mina Sesek Minic'
-              className='block h-12 w-auto max-w-full sm:h-[4.25rem] md:h-[4.75rem] lg:h-[5.125rem] object-contain object-left origin-left sm:max-w-[min(100%,22rem)] md:max-w-none scale-100 sm:scale-[1.08] md:scale-[1.05] lg:scale-100 hover:opacity-90 transition-opacity [filter:drop-shadow(0_1px_1px_rgb(0_0_0/0.1))]'
+              className='block h-12 w-auto max-w-full border-0 bg-transparent object-contain object-left shadow-none outline-none ring-0 filter-none transition-opacity hover:opacity-90 md:h-[4.75rem] lg:h-[5.125rem]'
               draggable={false}
               decoding='async'
             />

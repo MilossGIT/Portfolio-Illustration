@@ -5,7 +5,7 @@ import Footer from './Footer';
 
 function Layout() {
   return (
-    <div className='bg-gray-50' style={{ minHeight: '100vh' }}>
+    <div className='flex min-h-full flex-col bg-gray-50'>
       <Navigation />
       <Outlet />
       <Footer />

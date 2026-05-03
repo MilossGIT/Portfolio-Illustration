@@ -2,6 +2,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
+  // Never emit this legacy logo shadow utility (avoids stray matches + dead CSS in DevTools).
+  blocklist: [
+    '[filter:drop-shadow(0_1px_1px_rgb(0_0_0/0.1))]',
+    'md:[filter:drop-shadow(0_1px_1px_rgb(0_0_0/0.1))]',
+    'lg:[filter:drop-shadow(0_1px_1px_rgb(0_0_0/0.1))]',
+    'hover:[filter:drop-shadow(0_1px_1px_rgb(0_0_0/0.1))]',
+  ],
   theme: {
     extend: {
       colors: {

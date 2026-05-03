@@ -122,7 +122,7 @@ function RetailerBuyPicker() {
       <div className='md:hidden'>
         <div
           ref={scrollRef}
-          className='flex gap-3 overflow-x-auto snap-x snap-mandatory scroll-smooth scroll-pl-4 scroll-pr-4 py-1 -mx-4 px-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden'
+          className='flex touch-manipulation gap-3 overflow-x-auto overscroll-x-contain snap-x snap-mandatory scroll-smooth scroll-pl-4 scroll-pr-4 py-1 -mx-4 px-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden'
         >
           {RETAILERS.map((r, i) => (
             <button
