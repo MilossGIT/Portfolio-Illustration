@@ -1,9 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": "create-react-app",
-  "installCommand": "npm install",
-  "buildCommand": "npm run build",
-  "outputDirectory": "build",
+  "installCommand": "npm install --prefix portfolio-website",
+  "buildCommand": "npm run build --prefix portfolio-website",
+  "outputDirectory": "portfolio-website/build",
   "cleanUrls": false,
   "trailingSlash": false,
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]

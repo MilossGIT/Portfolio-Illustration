@@ -19,7 +19,7 @@
     "react-router-dom": "^6.30.3",
     "react-scripts": "5.0.1",
     "tailwindcss": "^3.4.14",
-    "vercel": "^38.0.0",
+    "vercel": "^53.1.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -27,7 +27,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "sync-images": "node scripts/sync-images.js"
+    "sync-images": "node scripts/sync-images.js",
+    "deploy": "vercel --prod --yes",
+    "vercel:version": "vercel --version"
   },
   "eslintConfig": {
     "extends": [
