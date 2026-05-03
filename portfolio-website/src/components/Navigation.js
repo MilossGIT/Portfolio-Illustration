@@ -28,24 +28,22 @@ function Navigation() {
   return (
     <nav className='fixed w-full z-50 bg-[#FFFFFF]'>
       <div className='max-w-7xl mx-auto px-4 sm:px-6'>
-        <div className='flex justify-between items-center py-3 sm:py-[0.9rem] gap-3'>
+        <div className='flex justify-between items-center gap-2 sm:gap-3 py-3 sm:py-[0.9rem]'>
           <Link
             to='/'
-            className='flex items-center shrink-0 min-w-0 max-w-[min(94vw,22rem)] sm:max-w-[28rem] md:max-w-[34rem] lg:max-w-[38rem]'
+            className='flex items-center min-w-0 flex-1 pr-1 sm:flex-none sm:pr-0 sm:max-w-[28rem] md:max-w-[34rem] lg:max-w-[38rem]'
             aria-label='Home'
           >
-            <span className='block h-[3.5rem] sm:h-[4.25rem] md:h-[4.75rem] lg:h-[5.125rem] w-full overflow-hidden rounded-sm'>
-              <img
-                src={signatureLogo}
-                alt='Mina Sesek Minic'
-                className='block h-full w-full min-w-full min-h-full object-cover object-center scale-[1.42] sm:scale-[1.34] md:scale-[1.28] lg:scale-[1.24] hover:opacity-90 transition-opacity [filter:drop-shadow(0_1px_1px_rgb(0_0_0/0.1))]'
-                draggable={false}
-                decoding='async'
-              />
-            </span>
+            <img
+              src={signatureLogo}
+              alt='Mina Sesek Minic'
+              className='block h-12 w-auto max-w-full sm:h-[4.25rem] md:h-[4.75rem] lg:h-[5.125rem] object-contain object-left origin-left sm:max-w-[min(100%,22rem)] md:max-w-none scale-100 sm:scale-[1.08] md:scale-[1.05] lg:scale-100 hover:opacity-90 transition-opacity [filter:drop-shadow(0_1px_1px_rgb(0_0_0/0.1))]'
+              draggable={false}
+              decoding='async'
+            />
           </Link>
 
-          <div className='hidden md:flex items-center space-x-1'>
+          <div className='hidden md:flex items-center space-x-1 shrink-0'>
             {menuItems.map((item) => (
               <NavLink
                 key={item.to}
@@ -66,7 +64,7 @@ function Navigation() {
           </div>
 
           <button
-            className='md:hidden p-2 text-gray-700 hover:text-pink-500 transition-colors'
+            className='md:hidden shrink-0 p-2 text-gray-700 hover:text-pink-500 transition-colors'
             type='button'
             onClick={() => setIsOpen(!isOpen)}
             aria-label='Toggle Menu'
