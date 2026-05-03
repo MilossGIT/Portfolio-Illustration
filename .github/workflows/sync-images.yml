@@ -9,6 +9,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: sync-cloudinary-images
+  cancel-in-progress: false
+
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -16,6 +20,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref }}
+
+      - name: Update local branch from origin
+        run: |
+          set -euo pipefail
+          BR="${GITHUB_REF_NAME:-main}"
+          git fetch origin "$BR"
+          git checkout -B "$BR" "origin/$BR"
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -36,10 +50,21 @@ jobs:
 
       - name: Commit and push if changed
         run: |
-          git config --global user.name 'GitHub Actions Bot'
-          git config --global user.email 'actions@github.com'
+          set -euo pipefail
+          git config user.name 'GitHub Actions Bot'
+          git config user.email 'actions@github.com'
+          TARGET_BRANCH="${GITHUB_REF_NAME:-main}"
+
           git add portfolio-website/public/images-data.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "🔄 Auto-sync images from Cloudinary" && git push)
+          if git diff --quiet && git diff --staged --quiet; then
+            echo "No image list changes."
+            exit 0
+          fi
+
+          git commit -m "chore(sync): update Cloudinary images-data.json"
+          git fetch origin "$TARGET_BRANCH"
+          git pull --rebase origin "$TARGET_BRANCH"
+          git push origin "HEAD:${TARGET_BRANCH}"
 
       - name: Deploy to Vercel Production
         if: success()
