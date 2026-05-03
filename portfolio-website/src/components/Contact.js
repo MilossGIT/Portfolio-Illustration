@@ -43,7 +43,7 @@ const Contact = () => {
               <Check className='w-6 h-6 text-green-500' />
             </div>
             <div>
-              <h3 className='font-bold'>Message Sent!</h3>
+              <h3 className='font-light'>Message Sent!</h3>
               <p className='text-gray-600'>Thank you for reaching out!</p>
             </div>
           </m.div>
@@ -61,7 +61,7 @@ const Contact = () => {
   };
 
   return (
-    <section id='contact' className='py-6 bg-white'>
+    <section id='contact' className='pt-[5.75rem] sm:pt-[6rem] md:pt-[6.375rem] lg:pt-[6.75rem] pb-16 bg-white'>
       <Toaster position='top-center' />
       <div className='container mx-auto px-4'>
         <m.div
@@ -71,10 +71,10 @@ const Contact = () => {
           viewport={{ once: true }}
           className='max-w-6xl mx-auto'
         >
-          <h2 className='text-4xl md:text-5xl font-bold text-center mb-4 font-poppins tracking-tight text-gray-900'>
+          <h2 className='text-4xl md:text-5xl font-light text-center mb-4 tracking-tight text-gray-900'>
             Get in Touch
           </h2>
-          <p className='text-gray-600 text-center mb-12 max-w-2xl mx-auto font-inter'>
+          <p className='text-gray-600 text-center mb-12 max-w-2xl mx-auto font-light'>
             I'm always open for new projects and creative collaborations. Feel
             free to reach out!
           </p>
@@ -98,7 +98,7 @@ const Contact = () => {
                   className='absolute inset-0 bg-gradient-to-br from-pink-100/50 to-purple-100/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500'
                 />
 
-                <h3 className='text-2xl font-medium mb-6 font-poppins relative z-10'>
+                <h3 className='text-2xl font-light mb-6 relative z-10'>
                   Contact Information
                 </h3>
 
@@ -115,7 +115,7 @@ const Contact = () => {
                       <Mail className='w-6 h-6 text-pink-500' />
                     </m.div>
                     <div>
-                      <p className='font-medium'>Email</p>
+                      <p className='font-light'>Email</p>
                       <a
                         href='mailto:minasesek@gmail.com'
                         className='text-gray-600 hover:text-pink-500 transition-colors'
@@ -137,14 +137,14 @@ const Contact = () => {
                       <MapPin className='w-6 h-6 text-pink-500' />
                     </m.div>
                     <div>
-                      <p className='font-medium'>Location</p>
+                      <p className='font-light'>Location</p>
                       <p className='text-gray-600'>Slovenia</p>
                     </div>
                   </m.div>
                 </div>
 
                 <div className='mt-8 relative z-10'>
-                  <h4 className='text-lg font-medium mb-4 font-poppins'>Follow Me</h4>
+                  <h4 className='text-lg font-light mb-4'>Follow Me</h4>
                   <div className='flex space-x-4'>
                     <m.a
                       whileHover={{ y: -5, scale: 1.1 }}
@@ -180,13 +180,13 @@ const Contact = () => {
               viewport={{ once: true }}
               className='glass-card shadow-lg p-8 hover-lift'
             >
-              <h3 className='text-2xl font-medium mb-6 font-poppins'>Send Me a Message</h3>
+              <h3 className='text-2xl font-light mb-6'>Send Me a Message</h3>
 
               <form ref={formRef} onSubmit={handleSubmit} className='space-y-6'>
                 <div>
                   <label
                     htmlFor='name'
-                    className='block text-sm font-medium text-gray-700 mb-1'
+                    className='block text-sm font-light text-gray-700 mb-1'
                   >
                     Name
                   </label>
@@ -206,7 +206,7 @@ const Contact = () => {
                 <div>
                   <label
                     htmlFor='email'
-                    className='block text-sm font-medium text-gray-700 mb-1'
+                    className='block text-sm font-light text-gray-700 mb-1'
                   >
                     Email
                   </label>
@@ -226,7 +226,7 @@ const Contact = () => {
                 <div>
                   <label
                     htmlFor='message'
-                    className='block text-sm font-medium text-gray-700 mb-1'
+                    className='block text-sm font-light text-gray-700 mb-1'
                   >
                     Message
                   </label>
@@ -248,10 +248,10 @@ const Contact = () => {
                   disabled={isSubmitting}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className={`w-full py-3 px-6 rounded-lg text-white font-medium 
+                  className={`w-full py-3 px-6 rounded-lg text-white font-light 
                     ${isSubmitting
                       ? 'bg-gray-400'
-                      : 'bg-pink-500 hover:bg-pink-600'
+                      : 'bg-[#DE6EA0] hover:bg-[#BE5F8D]'
                     } 
                     transition-colors flex items-center justify-center space-x-2`}
                 >
@@ -294,7 +294,7 @@ const Contact = () => {
                       >
                         <Check className='w-6 h-6 text-green-500' />
                       </m.div>
-                      <p className='text-green-500 font-medium'>
+                      <p className='text-green-500 font-light'>
                         Message sent successfully!
                       </p>
                     </m.div>

@@ -1,11 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --primary-color: #ec4899;
+  --primary-color: #de6ea0;
+  --button-primary: #de6ea0;
+  --button-primary-hover: #be5f8d;
   --secondary-color: #d68fb0;
   --background-color: #eae6f0;
   --text-color: #374151;
@@ -14,7 +16,7 @@
   --box-shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.15);
   --box-shadow-glass: 0 8px 32px rgba(31, 38, 135, 0.15);
   --transition-speed: 0.3s;
-  --gradient-primary: linear-gradient(135deg, #ec4899 0%, #f472b6 100%);
+  --gradient-primary: linear-gradient(135deg, #de6ea0 0%, #de6ea0 100%);
   --gradient-secondary: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
   --gradient-glass: linear-gradient(
     135deg,
@@ -33,13 +35,13 @@
 
   body {
     font-family:
-      'Inter',
+      'Nunito',
       -apple-system,
       BlinkMacSystemFont,
       'Segoe UI',
       'Roboto',
       sans-serif;
-    @apply m-0 p-0 bg-gray-50 text-gray-900;
+    @apply m-0 p-0 bg-gray-50 text-gray-900 font-light;
     overflow-x: hidden;
     overflow-y: auto;
     width: 100%;
@@ -60,7 +62,7 @@
 
   /* Mobile-specific gallery adjustments */
   @media (max-width: 768px) {
-    #gallery {
+    #portfolio {
       scroll-margin-top: 0;
       min-height: 100vh;
     }
@@ -98,7 +100,7 @@
   h4,
   h5,
   h6 {
-    @apply font-medium font-poppins;
+    @apply font-light font-sans;
     letter-spacing: -0.025em;
   }
 
@@ -125,7 +127,7 @@
   button,
   label {
     font-family:
-      'Inter',
+      'Nunito',
       -apple-system,
       BlinkMacSystemFont,
       'Segoe UI',
@@ -156,15 +158,19 @@
   }
 
   .btn {
-    @apply px-8 py-3 rounded-full transition-all duration-300 inline-flex items-center justify-center font-inter font-medium relative overflow-hidden;
+    @apply px-8 py-3 rounded-full transition-all duration-300 inline-flex items-center justify-center font-sans font-light relative overflow-hidden;
     box-shadow: var(--box-shadow);
     will-change: transform;
   }
 
   .btn-primary {
-    background: var(--gradient-primary);
+    background: var(--button-primary);
     @apply text-white transform hover:scale-105 hover:shadow-2xl;
-    box-shadow: 0 10px 30px rgba(236, 72, 153, 0.3);
+    box-shadow: 0 10px 28px rgba(222, 110, 160, 0.35);
+  }
+
+  .btn-primary:hover {
+    background: var(--button-primary-hover);
   }
 
   .btn-primary::before {
@@ -187,7 +193,7 @@
   }
 
   .section-title {
-    @apply text-4xl font-bold text-center mb-12;
+    @apply text-4xl font-light text-center mb-12;
   }
 
   .card {

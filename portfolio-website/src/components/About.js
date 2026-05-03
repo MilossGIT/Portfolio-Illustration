@@ -6,7 +6,7 @@ const aboutImage = 'https://res.cloudinary.com/dwerrhasa/image/upload/v176994042
 
 const About = () => {
   return (
-    <section id='about' className='py-6 bg-white'>
+    <section id='about' className='pt-[5.75rem] sm:pt-[6rem] md:pt-[6.375rem] lg:pt-[6.75rem] pb-16 bg-white'>
       <div className='container mx-auto px-4'>
         <m.div
           initial={{ opacity: 0, y: 20 }}
@@ -19,14 +19,14 @@ const About = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className='text-4xl font-bold text-center mb-12 font-poppins tracking-tight text-gray-900'
+            className='text-4xl font-light text-center mb-12 tracking-tight text-gray-900'
           >
             About Me
           </m.h2>
 
           <div className='grid md:grid-cols-2 gap-12 items-start'>
             <m.div
-              className='sticky top-24'
+              className='sticky top-[6.5rem] md:top-[6.75rem] lg:top-[7.25rem]'
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -54,7 +54,7 @@ const About = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
-                  className='text-base leading-relaxed font-inter text-gray-700'
+                  className='text-base leading-relaxed font-light text-gray-700'
                 >
                   My name is Mina, an illustrator, engineer, and proud mom based
                   in Ljubljana, Slovenia. My journey has been anything but
@@ -68,7 +68,7 @@ const About = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.2, duration: 0.6 }}
-                  className='text-base leading-relaxed font-inter text-gray-700'
+                  className='text-base leading-relaxed font-light text-gray-700'
                 >
                   My inspiration flows from the everyday magic of life—watching
                   my daughter explore the world, our shared moments reading
@@ -83,7 +83,7 @@ const About = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.4, duration: 0.6 }}
-                  className='text-base leading-relaxed font-inter text-gray-700'
+                  className='text-base leading-relaxed font-light text-gray-700'
                 >
                   From capturing the humorous reality of working from home (like
                   the time my daughter decided to become a hairdresser during my
@@ -103,7 +103,7 @@ const About = () => {
                 transition={{ delay: 0.6 }}
                 className='pt-6 border-t border-gray-200'
               >
-                <h3 className='text-xl font-bold text-gray-900 mb-4 font-poppins'>
+                <h3 className='text-xl font-light text-gray-900 mb-4'>
                   Find my work on
                 </h3>
                 <div className='flex space-x-4'>
@@ -111,7 +111,7 @@ const About = () => {
                     href='https://www.behance.net/miminart'
                     target='_blank'
                     rel='noopener noreferrer'
-                    className='text-gray-600 hover:text-pink-500 transition-colors font-medium'
+                    className='text-gray-600 hover:text-pink-500 transition-colors font-light'
                     whileHover={{ scale: 1.05, x: 3 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -121,7 +121,7 @@ const About = () => {
                     href='https://www.instagram.com/misemillustrations/'
                     target='_blank'
                     rel='noopener noreferrer'
-                    className='text-gray-600 hover:text-pink-500 transition-colors font-medium'
+                    className='text-gray-600 hover:text-pink-500 transition-colors font-light'
                     whileHover={{ scale: 1.05, x: 3 }}
                     whileTap={{ scale: 0.95 }}
                   >

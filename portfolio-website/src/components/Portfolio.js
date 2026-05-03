@@ -17,7 +17,7 @@ const shuffleArray = (array) => {
   return shuffled;
 };
 
-const Gallery = () => {
+const Portfolio = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [loadedImages, setLoadedImages] = useState(new Set());
   const [images, setImages] = useState([]);
@@ -212,23 +212,27 @@ const Gallery = () => {
   };
 
   return (
-    <section id='gallery' className='pt-20 pb-16 bg-gray-50'>
+    <section
+      id='portfolio'
+      className='pt-[7.25rem] sm:pt-[7.5rem] md:pt-[7.75rem] lg:pt-[8.125rem] pb-16 bg-gray-50'
+    >
       <div className='container mx-auto px-4'>
         <m.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className='text-center mb-12'
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true, amount: 0.3 }}
+          className='flex flex-col items-center text-center gap-6 mb-14 pt-2'
         >
-          <h2 className='text-4xl font-bold mb-4 font-poppins tracking-tight text-gray-900'>
-            My Work
+          <h2 className='text-4xl font-light tracking-tight text-gray-900'>
+            Portfolio
           </h2>
-          <p className='text-gray-600 max-w-2xl mx-auto font-inter'>
+          <p className='text-gray-600 max-w-2xl mx-auto font-light leading-relaxed'>
             A collection of my illustrations and digital artworks
           </p>
         </m.div>
 
+        <div className='min-h-[12rem] md:min-h-[16rem]'>
         {loading && (
           <div className='text-center py-20'>
             <div className='max-w-md mx-auto'>
@@ -247,7 +251,7 @@ const Gallery = () => {
                     ease: 'easeInOut'
                   }}
                 >
-                  <div className='w-16 h-16 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 flex items-center justify-center shadow-lg'>
+                  <div className='w-16 h-16 rounded-full bg-[#DE6EA0] flex items-center justify-center shadow-lg'>
                     <svg className='w-8 h-8 text-white' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
                       <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z' />
                     </svg>
@@ -258,7 +262,7 @@ const Gallery = () => {
                 <div className='w-full h-2 bg-gray-200 rounded-full overflow-hidden shadow-inner'>
                   {/* Animated loading bar */}
                   <m.div
-                    className='h-full bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 rounded-full'
+                    className='h-full bg-[#DE6EA0] rounded-full'
                     initial={{ x: '-100%' }}
                     animate={{ x: '100%' }}
                     transition={{
@@ -278,7 +282,7 @@ const Gallery = () => {
 
         {!loading && images.length === 0 && (
           <div className='text-center py-20'>
-            <p className='text-gray-600'>No images found. Please upload images to your Cloudinary gallery.</p>
+            <p className='text-gray-600'>No images found. Upload images via Cloudinary and run &quot;npm run sync-images&quot; to refresh.</p>
           </div>
         )}
 
@@ -293,7 +297,7 @@ const Gallery = () => {
                 viewport={{ once: true, margin: '-50px', amount: 0 }}
                 className='grid grid-cols-2 gap-4'
               >
-                {images.map((image, index) => (
+                {images.map((image) => (
                   <m.div
                     key={image.id}
                     variants={itemVariants}
@@ -376,7 +380,7 @@ const Gallery = () => {
                       {/* Reveal overlay effect */}
                       {loadedImages.has(image.id) && (
                         <m.div
-                          className='absolute inset-0 bg-gradient-to-r from-pink-500/0 via-pink-400/30 to-pink-500/0 z-30 pointer-events-none'
+                          className='absolute inset-0 bg-gradient-to-r from-[#DE6EA0]/0 via-[#DE6EA0]/30 to-[#DE6EA0]/0 z-30 pointer-events-none'
                           initial={{ x: '-100%', opacity: 1 }}
                           animate={{ x: '100%', opacity: 0 }}
                           transition={{
@@ -392,7 +396,7 @@ const Gallery = () => {
                       >
                         {/* Minimal light pink gradient background on hover */}
                         <m.div
-                          className='absolute inset-0 bg-gradient-to-t from-pink-100/30 to-transparent'
+                          className='absolute inset-0 bg-gradient-to-t from-[#DE6EA0]/25 to-transparent'
                           initial={{ opacity: 0, y: 20 }}
                           whileHover={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.3 }}
@@ -400,7 +404,7 @@ const Gallery = () => {
 
                         {/* Text with simple animation */}
                         <m.p
-                          className='text-gray-800 text-lg font-semibold relative z-30'
+                          className='text-gray-800 text-lg font-light relative z-30'
                           initial={{ opacity: 0, y: 10 }}
                           whileHover={{
                             opacity: 1,
@@ -421,6 +425,8 @@ const Gallery = () => {
           </>
         )}
 
+        </div>
+
         {/* Image Modal */}
         <AnimatePresence>
           {selectedImage && (
@@ -428,7 +434,7 @@ const Gallery = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className='fixed inset-0 bg-black bg-opacity-90 z-50 p-4 flex items-center justify-center'
+              className='fixed inset-0 bg-black bg-opacity-90 z-[100] p-4 flex items-center justify-center'
               style={{ touchAction: selectedImage ? 'none' : 'auto' }}
               onClick={() => setSelectedImage(null)}
               onTouchStart={selectedImage ? onTouchStart : undefined}
@@ -484,7 +490,7 @@ const Gallery = () => {
                     initial={{ opacity: 0, x: 10 }}
                     animate={{ opacity: 0.6, x: 0 }}
                     exit={{ opacity: 0 }}
-                    className='absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-pink-500/40 to-transparent pointer-events-none flex items-center justify-start pl-2'
+                    className='absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-[#DE6EA0]/40 to-transparent pointer-events-none flex items-center justify-start pl-2'
                   >
                     <ChevronLeft size={32} className='text-white' strokeWidth={2.5} />
                   </m.div>
@@ -494,7 +500,7 @@ const Gallery = () => {
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 0.6, x: 0 }}
                     exit={{ opacity: 0 }}
-                    className='absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-pink-500/40 to-transparent pointer-events-none flex items-center justify-end pr-2'
+                    className='absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[#DE6EA0]/40 to-transparent pointer-events-none flex items-center justify-end pr-2'
                   >
                     <ChevronRight size={32} className='text-white' strokeWidth={2.5} />
                   </m.div>
@@ -514,4 +520,4 @@ const Gallery = () => {
   );
 };
 
-export default Gallery;
+export default Portfolio;

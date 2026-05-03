@@ -1,101 +1,73 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import { NavLink, Link, useLocation } from 'react-router-dom';
+import signatureLogo from '../hector/signature.png';
 
-const Navigation = () => {
+const navLinkClass =
+  ({ isActive }) =>
+  `relative px-5 py-2 text-sm font-light transition-colors ${
+    isActive ? 'text-pink-500' : 'text-gray-700 hover:text-pink-500'
+  }`;
+
+function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
-  const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => {
-      const isScrolled = window.scrollY > 50;
-      if (isScrolled !== scrolled) {
-        setScrolled(isScrolled);
-      }
-
-      const sections = ['home', 'gallery', 'about', 'contact'];
-      const scrollPosition = window.scrollY + 100;
-
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const top = element.offsetTop;
-          const height = element.offsetHeight;
-
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [scrolled]);
-
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const headerOffset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition =
-        elementPosition + window.pageYOffset - headerOffset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth',
-      });
-      setIsOpen(false);
-    }
-  };
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   const menuItems = [
-    { id: 'home', label: 'Home' },
-    { id: 'gallery', label: 'Gallery' },
-    { id: 'about', label: 'About' },
-    { id: 'contact', label: 'Contact' },
+    { to: '/', label: 'Home', end: true },
+    { to: '/portfolio', label: 'Portfolio' },
+    { to: '/books', label: 'Books' },
+    { to: '/about', label: 'About' },
+    { to: '/contact', label: 'Contact' },
   ];
 
   return (
-    <nav
-      className={`fixed w-full z-50 transition-all duration-300 ${scrolled
-        ? 'bg-white/95 backdrop-blur-md shadow-md'
-        : 'bg-white/90 backdrop-blur-sm'
-        }`}
-    >
-      <div className='max-w-7xl mx-auto px-6'>
-        <div className='flex justify-between items-center h-20'>
-          {/* Logo */}
-          <div
-            className='text-2xl font-bold cursor-pointer font-poppins text-gray-900 hover:text-pink-500 transition-colors'
-            onClick={() => scrollToSection('home')}
+    <nav className='fixed w-full z-50 bg-[#FFFFFF]'>
+      <div className='max-w-7xl mx-auto px-4 sm:px-6'>
+        <div className='flex justify-between items-center py-3 sm:py-[0.9rem] gap-3'>
+          <Link
+            to='/'
+            className='flex items-center shrink-0 min-w-0 max-w-[min(94vw,22rem)] sm:max-w-[28rem] md:max-w-[34rem] lg:max-w-[38rem]'
+            aria-label='Home'
           >
-            Mina
-          </div>
+            <span className='block h-[3.5rem] sm:h-[4.25rem] md:h-[4.75rem] lg:h-[5.125rem] w-full overflow-hidden rounded-sm'>
+              <img
+                src={signatureLogo}
+                alt='Mina Sesek Minic'
+                className='block h-full w-full min-w-full min-h-full object-cover object-center scale-[1.42] sm:scale-[1.34] md:scale-[1.28] lg:scale-[1.24] hover:opacity-90 transition-opacity [filter:drop-shadow(0_1px_1px_rgb(0_0_0/0.1))]'
+                draggable={false}
+                decoding='async'
+              />
+            </span>
+          </Link>
 
-          {/* Desktop Menu */}
           <div className='hidden md:flex items-center space-x-1'>
             {menuItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className={`relative px-5 py-2 text-sm font-medium transition-colors ${activeSection === item.id
-                  ? 'text-pink-500'
-                  : 'text-gray-700 hover:text-pink-500'
-                  }`}
+              <NavLink
+                key={item.to}
+                to={item.to}
+                end={item.end}
+                className={navLinkClass}
               >
-                {item.label}
-                {activeSection === item.id && (
-                  <span className='absolute bottom-0 left-0 right-0 h-0.5 bg-pink-500 rounded-full' />
+                {({ isActive }) => (
+                  <>
+                    {item.label}
+                    {isActive && (
+                      <span className='absolute bottom-0 left-0 right-0 h-0.5 bg-pink-500 rounded-full' />
+                    )}
+                  </>
                 )}
-              </button>
+              </NavLink>
             ))}
           </div>
 
-          {/* Mobile Menu Button */}
           <button
             className='md:hidden p-2 text-gray-700 hover:text-pink-500 transition-colors'
+            type='button'
             onClick={() => setIsOpen(!isOpen)}
             aria-label='Toggle Menu'
           >
@@ -103,24 +75,25 @@ const Navigation = () => {
           </button>
         </div>
 
-        {/* Mobile Menu */}
         {isOpen && (
           <div className='md:hidden border-t border-gray-100 py-4'>
             <div className='space-y-1'>
               {menuItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => {
-                    scrollToSection(item.id);
-                    setIsOpen(false);
-                  }}
-                  className={`block w-full text-left px-4 py-3 text-base font-medium transition-colors ${activeSection === item.id
-                    ? 'text-pink-500 bg-pink-50'
-                    : 'text-gray-700 hover:text-pink-500 hover:bg-gray-50'
-                    }`}
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  end={item.end}
+                  onClick={() => setIsOpen(false)}
+                  className={({ isActive }) =>
+                    `block w-full text-left px-4 py-3 text-base font-light transition-colors ${
+                      isActive
+                        ? 'text-pink-500 bg-pink-50'
+                        : 'text-gray-700 hover:text-pink-500 hover:bg-gray-50'
+                    }`
+                  }
                 >
                   {item.label}
-                </button>
+                </NavLink>
               ))}
             </div>
           </div>
@@ -128,6 +101,6 @@ const Navigation = () => {
       </div>
     </nav>
   );
-};
+}
 
 export default Navigation;

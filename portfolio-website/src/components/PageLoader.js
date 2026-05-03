@@ -20,7 +20,7 @@ const PageLoader = () => {
             rotate: { duration: 2, ease: 'linear', repeat: Infinity },
             scale: { duration: 1, repeat: Infinity },
           }}
-          className='absolute inset-0 border-4 border-pink-500 rounded-full border-t-transparent'
+          className='absolute inset-0 border-4 border-[#DE6EA0] rounded-full border-t-transparent'
         />
       </div>
     </m.div>
