@@ -49,11 +49,14 @@ jobs:
         run: npm run sync-images
 
       - name: Commit and push if changed
+        id: sync_commit
         run: |
           set -euo pipefail
           git config user.name 'GitHub Actions Bot'
           git config user.email 'actions@github.com'
           TARGET_BRANCH="${GITHUB_REF_NAME:-main}"
+
+          echo "pushed=false" >> "$GITHUB_OUTPUT"
 
           git add portfolio-website/public/images-data.json
           if git diff --quiet && git diff --staged --quiet; then
@@ -65,16 +68,16 @@ jobs:
           git fetch origin "$TARGET_BRANCH"
           git pull --rebase origin "$TARGET_BRANCH"
           git push origin "HEAD:${TARGET_BRANCH}"
+          echo "pushed=true" >> "$GITHUB_OUTPUT"
 
       - name: Deploy to Vercel Production
-        if: success()
+        if: success() && (steps.sync_commit.outputs.pushed == 'true' || github.event_name == 'workflow_dispatch')
         working-directory: ./portfolio-website
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
         run: |
-          npm install -g vercel@latest
-          vercel pull --yes --environment=production --token=$VERCEL_TOKEN
-          vercel build --prod --token=$VERCEL_TOKEN
-          vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN --yes
+          set -euo pipefail
+          npx --yes vercel@latest deploy --prod --yes --token "$VERCEL_TOKEN"
+
