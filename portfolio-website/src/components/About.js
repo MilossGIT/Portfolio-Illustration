@@ -26,7 +26,7 @@ const About = () => {
 
           <div className='grid md:grid-cols-2 gap-12 items-start'>
             <m.div
-              className='sticky top-[6.5rem] md:top-[6.75rem] lg:top-[7.25rem]'
+              className='md:sticky md:top-[6.75rem] lg:top-[7.25rem] md:self-start'
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
