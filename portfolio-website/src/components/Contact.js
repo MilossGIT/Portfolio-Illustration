@@ -4,9 +4,25 @@ import emailjs from '@emailjs/browser';
 import { Mail, MapPin, Instagram, Globe, Send, Check } from 'lucide-react';
 import toast, { Toaster } from 'react-hot-toast';
 
+const CONTACT_EMAIL = 'minasesek@gmail.com';
+
 const EMAILJS_SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
 const EMAILJS_TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
 const EMAILJS_PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
+
+const emailJsConfigured =
+  typeof EMAILJS_SERVICE_ID === 'string' &&
+  EMAILJS_SERVICE_ID.length > 0 &&
+  typeof EMAILJS_TEMPLATE_ID === 'string' &&
+  EMAILJS_TEMPLATE_ID.length > 0 &&
+  typeof EMAILJS_PUBLIC_KEY === 'string' &&
+  EMAILJS_PUBLIC_KEY.length > 0;
+
+function buildMailtoHref({ name, email, message }) {
+  const subject = encodeURIComponent(`Portfolio contact · ${name}`);
+  const body = encodeURIComponent(`${message}\n\n— ${name}\nReply to: ${email}`);
+  return `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+}
 
 const Contact = () => {
   const formRef = useRef();
@@ -23,16 +39,26 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
+      if (!emailJsConfigured) {
+        window.location.href = buildMailtoHref(formData);
+        toast.success(
+          'Opening your email app. Send the message from there—or copy minasesek@gmail.com if nothing opens.',
+          { duration: 5000 },
+        );
+        setFormData({ name: '', email: '', message: '' });
+        return;
+      }
+
       const result = await emailjs.sendForm(
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
         formRef.current,
-        EMAILJS_PUBLIC_KEY
+        EMAILJS_PUBLIC_KEY,
       );
 
       if (result.text === 'OK') {
         setIsSuccess(true);
-        toast.custom((t) => (
+        toast.custom(() => (
           <m.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -54,7 +80,11 @@ const Contact = () => {
       }
     } catch (error) {
       console.error('EmailJS Error:', error);
-      toast.error('Failed to send message. Please try again.');
+      toast.error(
+        'Could not send from the site. Your email app will open with the same message—send it from there.',
+        { duration: 6000 },
+      );
+      window.location.href = buildMailtoHref(formData);
     } finally {
       setIsSubmitting(false);
     }
@@ -117,10 +147,10 @@ const Contact = () => {
                     <div>
                       <p className='font-light'>Email</p>
                       <a
-                        href='mailto:minasesek@gmail.com'
+                        href={`mailto:${CONTACT_EMAIL}`}
                         className='text-gray-600 hover:text-pink-500 transition-colors'
                       >
-                        minasesek@gmail.com
+                        {CONTACT_EMAIL}
                       </a>
                     </div>
                   </m.div>
