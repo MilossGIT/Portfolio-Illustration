@@ -2,123 +2,123 @@
   "images": [
     {
       "id": 1,
+      "publicId": "IMG_1460_r2u730",
+      "src": "https://res.cloudinary.com/dwerrhasa/image/upload/f_auto,q_auto,w_800/IMG_1460_r2u730",
+      "title": "IMG_1460_r2u730"
+    },
+    {
+      "id": 2,
       "publicId": "18_olzfvu",
       "src": "https://res.cloudinary.com/dwerrhasa/image/upload/f_auto,q_auto,w_800/18_olzfvu",
       "title": "18_olzfvu"
     },
     {
-      "id": 2,
+      "id": 3,
       "publicId": "16_ajoaxm",
       "src": "https://res.cloudinary.com/dwerrhasa/image/upload/f_auto,q_auto,w_800/16_ajoaxm",
       "title": "16_ajoaxm"
     },
     {
-      "id": 3,
+      "id": 4,
       "publicId": "10_x1vaoi",
       "src": "https://res.cloudinary.com/dwerrhasa/image/upload/f_auto,q_auto,w_800/10_x1vaoi",
       "title": "10_x1vaoi"
     },
     {
-      "id": 4,
+      "id": 5,
       "publicId": "Title_Page_fxmi6h",
       "src": "https://res.cloudinary.com/dwerrhasa/image/upload/f_auto,q_auto,w_800/Title_Page_fxmi6h",
       "title": "Title_Page_fxmi6h"
     },
     {
-      "id": 5,
+      "id": 6,
       "publicId": "Cover_Page_qoi9fq",
       "src": "https://res.cloudinary.com/dwerrhasa/image/upload/f_auto,q_auto,w_800/Cover_Page_qoi9fq",
       "title": "Cover_Page_qoi9fq"
     },
     {
-      "id": 6,
+      "id": 7,
       "publicId": "Zapravo_17_osvylt",
       "src": "https://res.cloudinary.com/dwerrhasa/image/upload/f_auto,q_auto,w_800/Zapravo_17_osvylt",
       "title": "Zapravo_17_osvylt"
     },
     {
-      "id": 7,
+      "id": 8,
       "publicId": "26_ehkbfs",
       "src": "https://res.cloudinary.com/dwerrhasa/image/upload/f_auto,q_auto,w_800/26_ehkbfs",
       "title": "26_ehkbfs"
     },
     {
-      "id": 8,
+      "id": 9,
       "publicId": "Treca_a35nwh",
       "src": "https://res.cloudinary.com/dwerrhasa/image/upload/f_auto,q_auto,w_800/Treca_a35nwh",
       "title": "Treca_a35nwh"
     },
     {
-      "id": 9,
+      "id": 10,
       "publicId": "Copyright_Page_bunnow",
       "src": "https://res.cloudinary.com/dwerrhasa/image/upload/f_auto,q_auto,w_800/Copyright_Page_bunnow",
       "title": "Copyright_Page_bunnow"
     },
     {
-      "id": 10,
+      "id": 11,
       "publicId": "23_bblycq",
       "src": "https://res.cloudinary.com/dwerrhasa/image/upload/f_auto,q_auto,w_800/23_bblycq",
       "title": "23_bblycq"
     },
     {
-      "id": 11,
+      "id": 12,
       "publicId": "8.JPG_fgl7lp",
       "src": "https://res.cloudinary.com/dwerrhasa/image/upload/f_auto,q_auto,w_800/8.JPG_fgl7lp",
       "title": "8.JPG_fgl7lp"
     },
     {
-      "id": 12,
+      "id": 13,
       "publicId": "Image46_lmkdta",
       "src": "https://res.cloudinary.com/dwerrhasa/image/upload/f_auto,q_auto,w_800/Image46_lmkdta",
       "title": "Image46_lmkdta"
     },
     {
-      "id": 13,
+      "id": 14,
       "publicId": "Image45_pgguhp",
       "src": "https://res.cloudinary.com/dwerrhasa/image/upload/f_auto,q_auto,w_800/Image45_pgguhp",
       "title": "Image45_pgguhp"
     },
     {
-      "id": 14,
+      "id": 15,
       "publicId": "Image38_kklaez",
       "src": "https://res.cloudinary.com/dwerrhasa/image/upload/f_auto,q_auto,w_800/Image38_kklaez",
       "title": "Image38_kklaez"
     },
     {
-      "id": 15,
+      "id": 16,
       "publicId": "Image42_auhpsp",
       "src": "https://res.cloudinary.com/dwerrhasa/image/upload/f_auto,q_auto,w_800/Image42_auhpsp",
       "title": "Image42_auhpsp"
     },
     {
-      "id": 16,
+      "id": 17,
       "publicId": "Image44_xnxnt7",
       "src": "https://res.cloudinary.com/dwerrhasa/image/upload/f_auto,q_auto,w_800/Image44_xnxnt7",
       "title": "Image44_xnxnt7"
     },
     {
-      "id": 17,
+      "id": 18,
       "publicId": "Image37_lspei2",
       "src": "https://res.cloudinary.com/dwerrhasa/image/upload/f_auto,q_auto,w_800/Image37_lspei2",
       "title": "Image37_lspei2"
     },
     {
-      "id": 18,
+      "id": 19,
       "publicId": "Image43_mzm7yn",
       "src": "https://res.cloudinary.com/dwerrhasa/image/upload/f_auto,q_auto,w_800/Image43_mzm7yn",
       "title": "Image43_mzm7yn"
     },
     {
-      "id": 19,
+      "id": 20,
       "publicId": "Image41_fmlqoq",
       "src": "https://res.cloudinary.com/dwerrhasa/image/upload/f_auto,q_auto,w_800/Image41_fmlqoq",
       "title": "Image41_fmlqoq"
-    },
-    {
-      "id": 20,
-      "publicId": "Image34_qiod25",
-      "src": "https://res.cloudinary.com/dwerrhasa/image/upload/f_auto,q_auto,w_800/Image34_qiod25",
-      "title": "Image34_qiod25"
     },
     {
       "id": 21,
