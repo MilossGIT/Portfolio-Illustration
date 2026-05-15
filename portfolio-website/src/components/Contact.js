@@ -9,6 +9,7 @@ const CONTACT_EMAIL = 'minasesek@gmail.com';
 const EMAILJS_SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
 const EMAILJS_TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
 const EMAILJS_PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
+const WEB3FORMS_ACCESS_KEY = process.env.REACT_APP_WEB3FORMS_ACCESS_KEY;
 
 const emailJsConfigured =
   typeof EMAILJS_SERVICE_ID === 'string' &&
@@ -17,6 +18,31 @@ const emailJsConfigured =
   EMAILJS_TEMPLATE_ID.length > 0 &&
   typeof EMAILJS_PUBLIC_KEY === 'string' &&
   EMAILJS_PUBLIC_KEY.length > 0;
+
+const web3formsConfigured =
+  typeof WEB3FORMS_ACCESS_KEY === 'string' && WEB3FORMS_ACCESS_KEY.length > 0;
+
+async function submitViaWeb3Forms({ name, email, message }) {
+  const res = await fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify({
+      access_key: WEB3FORMS_ACCESS_KEY,
+      subject: `Portfolio contact · ${name}`,
+      name,
+      email,
+      message,
+      replyto: email,
+    }),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok || data.success !== true) {
+    throw new Error(data.message || 'Web3Forms request failed');
+  }
+}
 
 function buildMailtoHref({ name, email, message }) {
   const subject = encodeURIComponent(`Portfolio contact · ${name}`);
@@ -39,24 +65,7 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      if (!emailJsConfigured) {
-        window.location.href = buildMailtoHref(formData);
-        toast.success(
-          'Opening your email app. Send the message from there—or copy minasesek@gmail.com if nothing opens.',
-          { duration: 5000 },
-        );
-        setFormData({ name: '', email: '', message: '' });
-        return;
-      }
-
-      const result = await emailjs.sendForm(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        formRef.current,
-        EMAILJS_PUBLIC_KEY,
-      );
-
-      if (result.text === 'OK') {
+      const showSuccessUi = () => {
         setIsSuccess(true);
         toast.custom(() => (
           <m.div
@@ -74,14 +83,35 @@ const Contact = () => {
             </div>
           </m.div>
         ));
-
         setFormData({ name: '', email: '', message: '' });
         setTimeout(() => setIsSuccess(false), 3000);
+      };
+
+      if (emailJsConfigured) {
+        const result = await emailjs.sendForm(
+          EMAILJS_SERVICE_ID,
+          EMAILJS_TEMPLATE_ID,
+          formRef.current,
+          EMAILJS_PUBLIC_KEY,
+        );
+        if (result.text === 'OK') {
+          showSuccessUi();
+        }
+      } else if (web3formsConfigured) {
+        await submitViaWeb3Forms(formData);
+        showSuccessUi();
+      } else {
+        window.location.href = buildMailtoHref(formData);
+        toast.success(
+          'Your email app should open with a draft. Tap Send there—mailto does not deliver until you send.',
+          { duration: 6000 },
+        );
+        setFormData({ name: '', email: '', message: '' });
       }
     } catch (error) {
-      console.error('EmailJS Error:', error);
+      console.error('Contact send error:', error);
       toast.error(
-        'Could not send from the site. Your email app will open with the same message—send it from there.',
+        'Could not send from the site. Opening your mail app instead—please tap Send to deliver.',
         { duration: 6000 },
       );
       window.location.href = buildMailtoHref(formData);
@@ -211,6 +241,14 @@ const Contact = () => {
               className='glass-card shadow-lg p-8 hover-lift'
             >
               <h3 className='text-2xl font-light mb-6'>Send Me a Message</h3>
+
+              {!emailJsConfigured && !web3formsConfigured && (
+                <p className='text-sm text-gray-600 font-light mb-6 leading-relaxed'>
+                  Tap <span className='text-gray-800'>Send Message</span>, then{' '}
+                  <span className='text-gray-800'>Send</span> again in your email app—the site cannot
+                  receive mail until your app actually sends it.
+                </p>
+              )}
 
               <form ref={formRef} onSubmit={handleSubmit} className='space-y-6'>
                 <div>

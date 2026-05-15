@@ -52,8 +52,10 @@ jobs:
         id: sync_commit
         run: |
           set -euo pipefail
-          git config user.name 'GitHub Actions Bot'
-          git config user.email 'actions@github.com'
+          # Use the repo owner so Vercel/Git deploys are not attributed to
+          # actions@github.com (not a Vercel team member → deploy may be blocked).
+          git config user.name "${{ github.repository_owner }}"
+          git config user.email "${{ github.repository_owner }}@users.noreply.github.com"
           TARGET_BRANCH="${GITHUB_REF_NAME:-main}"
 
           echo "pushed=false" >> "$GITHUB_OUTPUT"
@@ -70,6 +72,10 @@ jobs:
           git push origin "HEAD:${TARGET_BRANCH}"
           echo "pushed=true" >> "$GITHUB_OUTPUT"
 
+      # VERCEL_TOKEN must be created at vercel.com/account/tokens while logged in
+      # as a member of the team that owns this project (not actions@github.com).
+      # VERCEL_ORG_ID + VERCEL_PROJECT_ID: from .vercel/project.json after `vercel link`
+      # inside portfolio-website (or Vercel Dashboard → Project → Settings → General).
       - name: Deploy to Vercel Production
         if: success() && (steps.sync_commit.outputs.pushed == 'true' || github.event_name == 'workflow_dispatch')
         working-directory: ./portfolio-website
