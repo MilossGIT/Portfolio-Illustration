@@ -34,7 +34,7 @@ const Portfolio = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await fetch('/images-data.json');
+        const response = await fetch(`${process.env.PUBLIC_URL || ''}/images-data.json`);
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

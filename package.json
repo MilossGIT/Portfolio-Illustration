@@ -3,7 +3,6 @@
   "private": true,
   "scripts": {
     "build": "npm run build --prefix portfolio-website",
-    "deploy": "npm --prefix portfolio-website run deploy",
-    "vercel:version": "npm --prefix portfolio-website run vercel:version"
+    "deploy": "npm --prefix portfolio-website run deploy"
   }
 }

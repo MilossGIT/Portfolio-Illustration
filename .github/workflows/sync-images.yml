@@ -72,18 +72,14 @@ jobs:
           git push origin "HEAD:${TARGET_BRANCH}"
           echo "pushed=true" >> "$GITHUB_OUTPUT"
 
-      # VERCEL_TOKEN must be created at vercel.com/account/tokens while logged in
-      # as a member of the team that owns this project (not actions@github.com).
-      # VERCEL_ORG_ID + VERCEL_PROJECT_ID: from .vercel/project.json after `vercel link`
-      # inside portfolio-website (or Vercel Dashboard → Project → Settings → General).
-      - name: Deploy to Vercel Production
-        if: success() && (steps.sync_commit.outputs.pushed == 'true' || github.event_name == 'workflow_dispatch')
+      - name: Deploy to Cloudflare Pages
+        if: success() && env.CLOUDFLARE_API_TOKEN != '' && (steps.sync_commit.outputs.pushed == 'true' || github.event_name == 'workflow_dispatch')
         working-directory: ./portfolio-website
         env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           set -euo pipefail
-          npx --yes vercel@latest deploy --prod --yes --token "$VERCEL_TOKEN"
+          npm run build
+          npx wrangler pages deploy build --project-name=mina-portfolio --commit-dirty=true
 

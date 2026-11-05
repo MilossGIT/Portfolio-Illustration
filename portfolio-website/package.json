@@ -19,11 +19,11 @@
     "react-router-dom": "^6.30.3",
     "react-scripts": "5.0.1",
     "tailwindcss": "^3.4.14",
-    "vercel": "^53.1.0",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
-    "sharp": "^0.33.5"
+    "sharp": "^0.33.5",
+    "wrangler": "^4.158.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -32,8 +32,7 @@
     "eject": "react-scripts eject",
     "sync-images": "node scripts/sync-images.js",
     "flatten-logo": "node scripts/flatten-signature-logo.js",
-    "deploy": "vercel --prod --yes",
-    "vercel:version": "vercel --version"
+    "deploy": "react-scripts build && wrangler pages deploy build --project-name=mina-portfolio --commit-dirty=true"
   },
   "eslintConfig": {
     "extends": [
