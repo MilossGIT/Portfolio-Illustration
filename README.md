@@ -3,7 +3,7 @@
 A modern, responsive portfolio website designed to showcase illustrations and artwork. Built with React and modern web technologies, featuring an interactive gallery, smooth animations, and contact functionality.
 
 ## Live Site
-[misemillustration.com](https://www.misemillustration.com)
+[misemiillustrations.pages.dev](https://misemiillustrations.pages.dev)
 
 ## Technologies Used
 
@@ -12,7 +12,7 @@ A modern, responsive portfolio website designed to showcase illustrations and ar
 - Framer Motion
 - EmailJS
 - Lucide React Icons
-- Vercel (Deployment)
+- Cloudflare Pages (Deployment)
 
 ## Features
 
@@ -52,12 +52,12 @@ npm start
 
 ## Deployment
 
-The site is deployed using Vercel with automatic deployments configured from the main branch.
+The site is deployed using Cloudflare Pages with automatic deployments.
 
 ## Contact
 
 For inquiries about this project:
-- Email: webmyspaceforart@gmail.com
+- Email: minicm034@gmail.com
 
 ## License
 
