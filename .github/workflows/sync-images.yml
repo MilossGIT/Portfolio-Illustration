@@ -81,5 +81,5 @@ jobs:
         run: |
           set -euo pipefail
           npm run build
-          npx wrangler pages deploy build --project-name=mina-portfolio --commit-dirty=true
+          npx wrangler pages deploy build --project-name=misemiillustrations --commit-dirty=true
 

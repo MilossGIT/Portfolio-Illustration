@@ -32,7 +32,7 @@
     "eject": "react-scripts eject",
     "sync-images": "node scripts/sync-images.js",
     "flatten-logo": "node scripts/flatten-signature-logo.js",
-    "deploy": "react-scripts build && wrangler pages deploy build --project-name=mina-portfolio --commit-dirty=true"
+    "deploy": "react-scripts build && wrangler pages deploy build --project-name=misemiillustrations --commit-dirty=true"
   },
   "eslintConfig": {
     "extends": [
