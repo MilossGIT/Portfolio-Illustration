@@ -72,17 +72,16 @@ CLOUDINARY_API_SECRET=your_api_secret_here
 ❌ **DON'T**: Upload images to the root folder - use `portfolio-gallery`  
 ❌ **DON'T**: Delete `public/images-data.json` - it's needed for the website
 
-## Deployment (Vercel)
+## Deployment (Cloudflare Pages)
 
-When deploying to Vercel:
+When deploying to Cloudflare Pages:
 
-1. The `public/images-data.json` file will be included automatically
+1. The `public/images-data.json` file will be included in the build
 2. Your images will display without any additional configuration
 3. When you want to add new images:
    - Upload to Cloudinary
    - Run `npm run sync-images` locally
-   - Commit and push the updated `images-data.json` file
-   - Vercel will auto-deploy with the new images
+   - Commit and push the updated `images-data.json` file (or run `npm run deploy`)
 
 ## Troubleshooting
 

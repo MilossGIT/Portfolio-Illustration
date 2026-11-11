@@ -35,6 +35,16 @@ Go to your GitHub repository:
 - Name: `CLOUDINARY_API_SECRET`
 - Value: `<your-api-secret>` (get from your .env file)
 
+**Secret 4:**
+
+- Name: `CLOUDFLARE_API_TOKEN`
+- Value: `<your-cloudflare-pages-token>`
+
+**Secret 5:**
+
+- Name: `CLOUDFLARE_ACCOUNT_ID`
+- Value: `<your-cloudflare-account-id>`
+
 ### 3. Enable Actions
 
 1. Go to **Actions** tab in your GitHub repo
@@ -48,7 +58,7 @@ Go to your GitHub repository:
 - Fetches all images from your Cloudinary account
 - Updates `public/images-data.json`
 - Commits and pushes the changes
-- Vercel automatically deploys the update
+- Deploys automatically to Cloudflare Pages
 
 **Manual Sync:**
 
